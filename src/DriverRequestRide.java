@@ -4,10 +4,6 @@ public class DriverRequestRide implements Subject, Observer{
 
 
 
-    public void requestRide(){
-
-    }
-
     @Override
     public void subscribe(Person person) {
         if(person instanceof User){

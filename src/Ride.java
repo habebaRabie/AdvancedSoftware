@@ -1,4 +1,6 @@
-enum rideStatus {ACEPTED, REJECTED, PENDINGDRIVER, PENDINGUSER}
+import java.util.Scanner;
+
+enum rideStatus {ACCEPTED, REJECTED, PENDINGDRIVER, PENDINGUSER}
 
 public class Ride {
     String source;
@@ -33,6 +35,17 @@ public class Ride {
     public Ride(String source, String destnation) {
         this.source = source;
         this.destnation = destnation;
+    }
+
+    public Ride requestRide(){
+        System.out.println("please enter your location");
+        Scanner in = new Scanner(System.in);
+        String src = in.next();
+        System.out.println("please enter the location of destination");
+        //Scanner in = new Scanner(System.in);
+        String des = in.next();
+        Ride myRide = new Ride(src , des);
+        return myRide;
     }
 
     public Ride() {

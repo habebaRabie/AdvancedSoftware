@@ -3,11 +3,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Database {
-    ArrayList<Driver> allDriver = new ArrayList<Driver>();
-    ArrayList<User> allUser = new ArrayList<User>();
-    ArrayList<Ride> allRides = new ArrayList<Ride>();
-    ArrayList<Rating> allrate = new ArrayList<Rating>();
-    Map<String ,StringBuilder> Areas = new HashMap<String ,StringBuilder>();//areas , list drivers
+    ArrayList<Driver> allDriver = new ArrayList<>();
+    ArrayList<User> allUser = new ArrayList<>();
+    ArrayList<Ride> allRides = new ArrayList<>();
+    ArrayList<Rating> allrate = new ArrayList<>();
+    Map<String ,StringBuilder> Areas = new HashMap<>();//areas , list drivers
 
     public ArrayList<Driver> getAllDriver() {
         return allDriver;
