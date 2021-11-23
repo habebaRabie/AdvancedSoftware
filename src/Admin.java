@@ -30,19 +30,19 @@ public class Admin extends Person{
         return drivers;
     }
 
-    public void addActiveUser(User user){
+    public static void addActiveUser(User user){
         users.add(user);
     }
 
-    public void removeUser(User user){
+    public static void removeUser(User user){
         users.remove(user);
     }
 
-    public void addActiveDriver(Driver driver){
+    public static void addActiveDriver(Driver driver){
         drivers.add(driver);
     }
 
-    public void removeDriver(Driver driver){
+    public static void removeDriver(Driver driver){
         drivers.remove(driver);
     }
 
@@ -64,18 +64,10 @@ public class Admin extends Person{
         }
     }
 
-    @Override
-    void login(Person person) {
-
-    }
-
-    @Override
-    void login() {
-        System.out.println("Please enter your userName and Password");
-        Scanner input = new Scanner(System.in);
+    void login(String name, String password) {
         Person admin = new Admin();
-        admin.setUserName(input.nextLine());
-        admin.setPassword(input.nextLine());
+        admin.setUserName(name);
+        admin.setPassword(password);
     }
 
     public void verify(Person person){

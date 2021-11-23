@@ -1,4 +1,3 @@
-package swproject;
 import java.util.Scanner;
 
 enum UserStatus {ACTIVE, SUSPENDED, INRIDE, WAITING, OFFLINE}
@@ -8,6 +7,7 @@ public class User extends Person{
     private int userID;
     private UserStatus status;
     private static int count;
+    userRequestRide rideRequest;
 
     public void setStatus(UserStatus status) {
         this.status = status;
@@ -56,14 +56,15 @@ public class User extends Person{
         userName = input.nextLine();
         System.out.println("Password: ");
         password = input.nextLine();
-        System.out.println("Email (optional): ");
+        System.out.println("Email (optional): press enter to skip it if you want");
         email = input.nextLine();
         System.out.println("Phone Number: ");
         phoneNumber = input.nextLine();
         status = UserStatus.ACTIVE;
+        Admin.addActiveUser(this);
     }
 
-    userRequestRide rideRequest;
+
 
     public Ride requestUserRide(){
         Ride ride = new Ride();
@@ -83,20 +84,7 @@ public class User extends Person{
         
         Ride ride = new Ride(source, destination);
     }*/
-    
-    public void update(){
-        
+    public void rateDriver(Driver driver){
+        driver.setMyRate(this);
     }
-
-    @Override
-    void login(Person person) {
-
-    }
-
-    @Override
-    void login() {
-
-    }
-
-
 }

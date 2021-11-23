@@ -1,10 +1,8 @@
-
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 enum DriverStatus {
-    ACTIVE, REJECTED, SUSPENDED, PENDING, WAITING, OFFLINE
+    ACTIVE, REJECTED, SUSPENDED, PENDING, WAITING, OFFLINE, INDRIVE
 }
 
 public class Driver extends Person {
@@ -13,9 +11,17 @@ public class Driver extends Person {
     private String nationalId;
     private String drivingLicense;
     private DriverStatus state = DriverStatus.PENDING;
-//    private Rating myRate;
-
+    private ArrayList<Ride> myRides;
+    private Rating myRate;
     private DriverAreas myAreas;
+
+    public ArrayList<Ride> getMyRides() {
+        return myRides;
+    }
+
+    public void setMyRides(Ride newRide) {
+        myRides.add(newRide);
+    }
 
     public ArrayList<String> getMyAreas() {
         return myAreas.getAllArea();
@@ -24,19 +30,33 @@ public class Driver extends Person {
     public void setMyAreas(String area) {
         myAreas.addFavAreas(area);
     }
-//private DriverStatus;
 
-    Driver() {
+    public void register() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Please enter your information: ");
+        System.out.println("Username: ");
+        userName = input.nextLine();
+        System.out.println("Password: ");
+        password = input.nextLine();
+        System.out.println("Email (optional): press enter to skip it if you want");
+        email = input.nextLine();
+        System.out.println("Phone Number: ");
+        phoneNumber = input.nextLine();
+        state = DriverStatus.ACTIVE;
+        Admin.addActiveDriver(this);
     }
 
     Driver(String userName, String password,
-            String email, String phoneNumber,
-            String nationalId, String drivingLicense, int driverID) {
+           String email, String phoneNumber,
+           String nationalId, String drivingLicense, int driverID) {
 
         super(userName, password, email, phoneNumber);
         this.nationalId = nationalId;
         this.drivingLicense = drivingLicense;
         this.driverID = driverID;
+    }
+
+    public Driver() {
     }
 
     public void setNationalId(String nationalId) {
@@ -76,23 +96,10 @@ public class Driver extends Person {
         Scanner in = new Scanner(System.in);
         double price = in.nextDouble();
         return price;
-
-    }
-//    public ArrayList<Driver> searchAvailableDrive(String src){
-//        ArrayList<Driver> availableDrivers = new ArrayList<>();
-//        if
-//
-//        return availableDrivers;
-//    }
-
-    @Override
-    void login(Person person) {
-
     }
 
-    @Override
-    void login() {
-
+    public void setMyRate(User user) {
+        myRate.setRating(user);
     }
 
 }

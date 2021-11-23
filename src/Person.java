@@ -24,8 +24,4 @@ abstract class  Person {
     public String getEmail () { return  email; }
     public String getPhoneNumber () { return phoneNumber; }
 
-    abstract void login (Person person);
-
-
-    abstract void login();
 }

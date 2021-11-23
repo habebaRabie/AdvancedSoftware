@@ -1,4 +1,3 @@
-package swproject;
 import java.util.Scanner;
 
 enum rideStatus {ACCEPTED, REJECTED, PENDINGDRIVER, PENDINGUSER}
@@ -8,6 +7,14 @@ public class Ride {
     String destnation;
     double price;
     rideStatus mystatus ;
+
+    public rideStatus getMystatus() {
+        return mystatus;
+    }
+
+    public void setMystatus(rideStatus mystatus) {
+        this.mystatus = mystatus;
+    }
 
     public String getSource() {
         return source;
