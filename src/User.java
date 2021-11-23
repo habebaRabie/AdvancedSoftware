@@ -7,7 +7,31 @@ public class User extends Person{
     private int userID;
     private UserStatus status;
     private static int count;
-    
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
+    }
+
+    public static void setCount(int count) {
+        User.count = count;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public static int getCount() {
+        return count;
+    }
+
+    public userRequestRide getRideRequest() {
+        return rideRequest;
+    }
+
     public User() {
         this.userID = count;
         this.status = UserStatus.ACTIVE;
@@ -62,4 +86,16 @@ public class User extends Person{
     public void update(){
         
     }
+
+    @Override
+    void login(Person person) {
+
+    }
+
+    @Override
+    void login() {
+
+    }
+
+
 }

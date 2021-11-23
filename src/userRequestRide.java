@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class userRequestRide implements Subject{
+public class userRequestRide {
 
     Ride myRide;
     User user;
@@ -34,18 +34,5 @@ public class userRequestRide implements Subject{
 //        }
 //    }
 
-    @Override
-    public void subscribe(Person person) {
 
-    }
-
-    @Override
-    public void unsubscribe(Person person) {
-
-    }
-
-    @Override
-    public void sendNotification() {
-
-    }
 }

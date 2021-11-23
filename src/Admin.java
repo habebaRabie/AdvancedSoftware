@@ -12,7 +12,7 @@ public class Admin extends Person{
             removeUser((User) person);
             for (User u : users){
                 if(person == u){
-                    u.stat = UserStatus.SUSPENDED;
+                    u.setStatus(UserStatus.SUSPENDED);
                 }
             }
         }else{
@@ -82,7 +82,7 @@ public class Admin extends Person{
             addActiveUser((User) person);
             for (User u : users){
                 if(person == u){
-                    u.stat = UserStatus.ACTIVE;
+                    u.setStatus(UserStatus.ACTIVE);
                 }
             }
         }else{
