@@ -13,28 +13,11 @@ public class Main {
     static Admin myAdmin = new Admin();
     static User user;
     static Driver driver;
-    static ArrayList<userRequestRide> allUserRides = new ArrayList<>();
+    static HashMap<User, userRequestRide> allUserRides = new HashMap<>();
     static ArrayList<Driver> allDrivers = Admin.getAllDrivers();
     static HashMap<Driver, userRequestRide> allRides = new HashMap<>();
 
-    /*public void login(){
-        ArrayList<User> allUsers = Admin.getAllUsers();
-        System.out.println("Please enter your username and password");
-        Scanner input = new Scanner(System.in);
-       String userName = input.nextLine();
-        password = input.nextLine();
-        for(User user: allUsers){
-            if(user.userName == userName){
-                if(user.password == password){
-                    System.out.println("Logged in successfully");
-                    status = UserStatus.ACTIVE;
-                    break;
-                }
-                System.out.println("Wrong password");
-            }
-            System.out.println("Wrong username");
-        }
-    }*/
+
     public static void actUser() {
         Scanner input = new Scanner(System.in);
         Scanner chooseDriver = new Scanner(System.in);
@@ -45,31 +28,39 @@ public class Main {
                 userRequestRide newRide = new userRequestRide();
                 newRide.userRequest(user);
                 if (newRide.getMyRide().getMystatus() != rideStatus.REJECTED) {
-                    allUserRides.add(newRide);
+                    allUserRides.put(user, newRide);
                     allRides.put(newRide.getRideDriver(), newRide);
                 }
                 actUser();
                 break;
             case "2":
-                int counter = 1;
+
                 if (allUserRides.size() == 0) {
                     System.out.println("there is no ride yet");
                     actUser();
                     break;
                 }
-                for (userRequestRide rideDriver : allUserRides) {
-                    System.out.println(counter + "- " + rideDriver.getRideDriver().getUserName());
-                    counter++;
+
+                for (HashMap.Entry<User, userRequestRide> rideDriver : allUserRides.entrySet()) {
+                    if (rideDriver.getKey() == user){
+                        System.out.println(rideDriver.getValue().getRideDriver().getUserName());
+                        System.out.println("Do you want to rate this driver\n 1-Yes\n 2-No");
+                        int ch = chooseDriver.nextInt();
+                        if (ch == 1){
+                            user.rateDriver(rideDriver.getValue().getRideDriver());
+                        }
+                    }
+
                 }
-                System.out.println("Please choose the driver you want to rate");
+                /*System.out.println("Please choose the driver you want to rate");
                 //get(chooseDriver.nextInt()-1)
                 int ch = chooseDriver.nextInt();
                 if (ch > allUserRides.size()) {
                     System.out.println("worng choice");
                     actUser();
                     break;
-                }
-                user.rateDriver(allUserRides.get(ch - 1).getRideDriver());
+                }*/
+               // user.rateDriver(allUserRides.get(ch - 1).getRideDriver());
                 actUser();
                 break;
             case "3":
@@ -78,18 +69,30 @@ public class Main {
                     actUser();
                     break;
                 }
-                counter = 1;
-                for (userRequestRide rideDriver : allUserRides) {
+
+                /*for (userRequestRide rideDriver : allUserRides) {
                     System.out.println(counter + "- " + rideDriver.getRideDriver().getUserName());
                     counter++;
+                }*/
+
+                for (HashMap.Entry<User, userRequestRide> rideDriver : allUserRides.entrySet()) {
+                    if (rideDriver.getKey() == user){
+                        System.out.println(rideDriver.getValue().getRideDriver().getUserName());
+                        System.out.println("Do you want to see this driver rating\n 1-Yes\n 2-No");
+                        int ch = chooseDriver.nextInt();
+                        if (ch == 1){
+                            System.out.println(rideDriver.getValue().getRideDriver().getAvgRate());
+                        }
+                    }
+
                 }
-                System.out.println("Please choose the driver you want to rate");
-                Driver driver = allUserRides.get(chooseDriver.nextInt() - 1).getRideDriver();
-                System.out.println("The average rate of the driver you have selected is " + driver.getAvgRate());
+                //System.out.println("Please choose the driver you want to rate");
+                //Driver driver = allUserRides.get(chooseDriver.nextInt() - 1).getRideDriver();
+                //System.out.println("The average rate of the driver you have selected is " + driver.getAvgRate());
                 actUser();
                 break;
             case "4":
-                allUserRides.clear();
+                //allUserRides.clear();
                 // user = null;
                 break;
             default:
@@ -219,7 +222,6 @@ public class Main {
                         case "1":
                             user = User.loginUser();
                             if (user != null) {
-                                System.out.println(user.getPhoneNumber());
                                 actUser();
 
                             }

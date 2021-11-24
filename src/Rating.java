@@ -12,7 +12,7 @@ public class Rating {
             return;
         }
         for (HashMap.Entry<User, Integer> rate : rating.entrySet()) {
-            System.out.println(rate.getKey().getUserName() + " the offer is : " + rate.getValue());
+            System.out.println(rate.getKey().getUserName() + " rating is : " + rate.getValue());
         }
     }
 

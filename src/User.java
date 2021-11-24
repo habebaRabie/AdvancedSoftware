@@ -75,12 +75,14 @@ public class User extends Person {
 
     static User loginUser() {
         ArrayList<User> allUsers = Admin.getAllUsers();
+        Boolean found = false;
         System.out.println("Please enter your username and password");
         Scanner input = new Scanner(System.in);
         String Name = input.nextLine();
         String pass = input.nextLine();
         for (User user : allUsers) {
             if (user.getUserName().equals(Name)) {
+                found = true;
                 if (user.getPassword().equals(pass)) {
                     System.out.println("Logged in successfully");
                     user.setStatus(UserStatus.ACTIVE); //= UserStatus.ACTIVE;
@@ -92,7 +94,13 @@ public class User extends Person {
             }
 
         }
-        System.out.println("Wrong password or user name");
+        if (found){
+            System.out.println("Wrong password or user name");
+        }
+        else {
+            System.out.println("There is no user with this name");
+        }
+
         return null;
     }
 

@@ -115,6 +115,7 @@ public class Admin extends Person {
     public void verify() {
         ArrayList<Driver> driv = new ArrayList<Driver>();
         if (ALLdrivers.size() == 0) {
+            System.out.println("there is no drivers need to be verified");
             return;
         }
         for (Driver driver : ALLdrivers) {

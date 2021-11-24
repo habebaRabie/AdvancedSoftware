@@ -61,7 +61,9 @@ public class Driver extends Person {
         String pass = input.nextLine();
         for (Driver driver : allDrivers) {
             if (driver.getUserName().equals(name)) {
-                if (driver.getPassword().equals(pass) && driver.state == DriverStatus.ACTIVE) {
+                if (driver.getPassword().equals(pass) && (driver.state.equals(DriverStatus.ACTIVE)
+                        || driver.state.equals(DriverStatus.INDRIVE)
+                        || driver.state.equals(DriverStatus.WAITING))) {
                     System.out.println("Logged in successfully");
                     return driver;
                 } else {
@@ -70,7 +72,7 @@ public class Driver extends Person {
                 }
             }
         }
-        System.out.println("Please wait until the verification of your account finish");
+        System.out.println("Please wait until the verification of your account finish or wrong input");
         return null;
     }
 
@@ -125,7 +127,7 @@ public class Driver extends Person {
     }
 
     public Double rideOffer() {
-        System.out.print("Please enter your offer to this ride");
+        System.out.print("Please enter your offer to this ride: ");
         Scanner in = new Scanner(System.in);
         double price = in.nextDouble();
         return price;
