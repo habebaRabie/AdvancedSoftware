@@ -6,8 +6,20 @@ public class userRequestRide {
 
     Ride myRide;
     User user;
-     //myDriver.get(0)
+    Driver rideDriver;
 
+
+    public Ride getMyRide() {
+        return myRide;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Driver getRideDriver() {
+        return rideDriver;
+    }
 
     public void userRequest (User client){
         this.user = client;
@@ -28,6 +40,7 @@ public class userRequestRide {
                 }
             }
         }
+
         return myDriver;
     }
 
@@ -43,26 +56,30 @@ public class userRequestRide {
             System.out.println(i + " - the driver name is : " + offr.getKey().userName + " the offer is : " + offr.getValue());
             i++;
         }
+        if(i == 1){
+            System.out.println("No Drivers is valid right now");
+            return;
+        }
         System.out.println(i + "- Cancel the trip");
         System.out.println("Please enter the choice of offer you need :");
         Scanner input = new Scanner(System.in);
         int choice = input.nextInt();
-        if (choice == i) {
+        if (choice == i) { //cancelled
             myRide.setMystatus(rideStatus.REJECTED);
         } else {
-            Driver selectedOfferDriver = null;
+            //Driver selectedOfferDriver = null;
 
             int counter = 1;
             for(Driver driver: offers.keySet()){
                 if(counter == choice){
-                    selectedOfferDriver = driver;
+                    rideDriver = driver;
                     myRide.price = offers.get(driver);
                     break;
                 }
                 counter ++;
             }
-            selectedOfferDriver.setDriverStatus(DriverStatus.INDRIVE);
-            selectedOfferDriver.setMyRides(myRide);
+            rideDriver.setDriverStatus(DriverStatus.INDRIVE);
+            rideDriver.setMyRides(myRide);
             myRide.setMystatus(rideStatus.ACCEPTED);
         }
     }

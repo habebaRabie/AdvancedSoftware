@@ -59,6 +59,12 @@ public class Ride {
     public Ride() {
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Ride{" +
+                "source='" + source + '\'' +
+                ", destnation='" + destnation + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

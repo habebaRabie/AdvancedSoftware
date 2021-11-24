@@ -4,12 +4,14 @@ import java.util.Scanner;
 public class Rating {
     HashMap <User, Integer> rating;
 
-    public HashMap<User, Integer> getMyRate(){
-        return rating;
+    public void getRating(){
+        for (HashMap.Entry<User, Integer> rate : rating.entrySet()) {
+            System.out.println(rate.getKey().getUserName() + " the offer is : " + rate.getValue());
+        }
     }
 
     public void setRating(User user){
-        System.out.println("Please rate your driver in the last ride");
+        System.out.println("Please rate the selected driver");
         Scanner input = new Scanner(System.in);
         int rate = input.nextInt();
         rating.put(user, rate);

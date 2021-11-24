@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 enum UserStatus {ACTIVE, SUSPENDED, INRIDE, WAITING, OFFLINE}
@@ -39,6 +40,11 @@ public class User extends Person{
         count++;
     }
 
+    @Override
+    public String getUserName() {
+        return this.userName;
+    }
+
     public User(int userID, String userName, String password, String email, String phoneNumber) {
         super(userName, password, email, phoneNumber);
         this.userID = count;
@@ -60,11 +66,28 @@ public class User extends Person{
         email = input.nextLine();
         System.out.println("Phone Number: ");
         phoneNumber = input.nextLine();
-        status = UserStatus.ACTIVE;
+       // status = UserStatus.ACTIVE;
         Admin.addActiveUser(this);
     }
 
-
+    public void login(){
+        ArrayList<User> allUsers = Admin.getAllUsers();
+        System.out.println("Please enter your username and password");
+        Scanner input = new Scanner(System.in);
+        userName = input.nextLine();
+        password = input.nextLine();
+        for(User user: allUsers){
+            if(user.userName == userName){
+                if(user.password == password){
+                    System.out.println("Logged in successfully");
+                    status = UserStatus.ACTIVE;
+                    break;
+                }
+                System.out.println("Wrong password");
+            }
+            System.out.println("Wrong username");
+        }
+    }
 
     public Ride requestUserRide(){
         Ride ride = new Ride();

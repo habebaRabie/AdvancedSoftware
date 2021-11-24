@@ -15,6 +15,12 @@ public class Driver extends Person {
     private Rating myRate;
     private DriverAreas myAreas;
 
+    public double getAvgRate() {
+        return myRate.calcAvgRate();
+    }
+
+
+
     public ArrayList<Ride> getMyRides() {
         return myRides;
     }
@@ -42,9 +48,34 @@ public class Driver extends Person {
         email = input.nextLine();
         System.out.println("Phone Number: ");
         phoneNumber = input.nextLine();
-        state = DriverStatus.ACTIVE;
-        Admin.addActiveDriver(this);
+
+        state = DriverStatus.SUSPENDED;
+        Admin.addDriverToSystem(this);
     }
+
+    public Boolean login(){
+        ArrayList<Driver> allDrivers = Admin.getAllDrivers();
+        System.out.println("Please enter your username and password");
+        Scanner input = new Scanner(System.in);
+        String name = input.nextLine();
+        String pass = input.nextLine();
+        for(Driver driver: allDrivers){
+            if(driver.userName.equals(name) ){
+                if(driver.password.equals(pass) ){
+                    if(state == DriverStatus.ACTIVE){
+                        System.out.println("Logged in successfully");
+                        return true;
+                    }else{
+                        System.out.println("Please wait until the verification of your account finish");
+                    }
+                }
+                System.out.println("Wrong password");
+            }
+            System.out.println("Wrong username");
+        }
+        return false;
+    }
+
 
     Driver(String userName, String password,
            String email, String phoneNumber,
@@ -57,6 +88,11 @@ public class Driver extends Person {
     }
 
     public Driver() {
+    }
+
+    @Override
+    public String getUserName() {
+        return this.userName;
     }
 
     public void setNationalId(String nationalId) {
@@ -98,8 +134,14 @@ public class Driver extends Person {
         return price;
     }
 
+    public void getMyRate() {
+        myRate.getRating();
+    }
+
     public void setMyRate(User user) {
         myRate.setRating(user);
     }
+
+
 
 }

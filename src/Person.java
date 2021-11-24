@@ -19,7 +19,7 @@ abstract class  Person {
     public void setPEmail (String email) { this.email = email; }
     public void setPhoneNumber (String phoneNumber) { this.phoneNumber = phoneNumber;}
 
-    public String getUserName () { return  userName; }
+    abstract public String getUserName ();
     public String getPassword () { return  password; }
     public String getEmail () { return  email; }
     public String getPhoneNumber () { return phoneNumber; }
