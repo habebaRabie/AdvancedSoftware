@@ -1,3 +1,4 @@
+package swproject;
 import java.util.Scanner;
 
 enum UserStatus {ACTIVE, SUSPENDED, INRIDE, WAITING, OFFLINE}

@@ -1,3 +1,4 @@
+package swproject;
 import java.util.Scanner;
 
 enum rideStatus {ACCEPTED, REJECTED, PENDINGDRIVER, PENDINGUSER}

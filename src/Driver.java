@@ -1,8 +1,13 @@
+
+
 import java.util.ArrayList;
+import java.util.Scanner;
 
-enum DriverStatus {ACTIVE, REJECTED, SUSPENDED, PENDING, WAITING, OFFLINE}
+enum DriverStatus {
+    ACTIVE, REJECTED, SUSPENDED, PENDING, WAITING, OFFLINE
+}
 
-public class Driver extends Person{
+public class Driver extends Person {
 
     private int driverID;
     private String nationalId;
@@ -12,7 +17,7 @@ public class Driver extends Person{
 
     private DriverAreas myAreas;
 
-    public  ArrayList<String> getMyAreas() {
+    public ArrayList<String> getMyAreas() {
         return myAreas.getAllArea();
     }
 
@@ -21,9 +26,10 @@ public class Driver extends Person{
     }
 //private DriverStatus;
 
-    Driver () { }
+    Driver() {
+    }
 
-    Driver (String userName, String password,
+    Driver(String userName, String password,
             String email, String phoneNumber,
             String nationalId, String drivingLicense, int driverID) {
 
@@ -33,16 +39,45 @@ public class Driver extends Person{
         this.driverID = driverID;
     }
 
-    public void setNationalId (String nationalId) { this.nationalId = nationalId; }
-    public void setDrivingLicense (String drivingLicense) { this.drivingLicense = drivingLicense; }
-    public void setDriverID (int driverID) { this.driverID = driverID; }
-    public void setDriverStatus (DriverStatus state) { this.state = state; }
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
+    }
 
-    public String getNationalId () { return  nationalId; }
-    public String getDrivingLicense () { return  drivingLicense; }
-    public int getDriverID () { return  driverID; }
-    public DriverStatus getState() { return state; }
+    public void setDrivingLicense(String drivingLicense) {
+        this.drivingLicense = drivingLicense;
+    }
 
+    public void setDriverID(int driverID) {
+        this.driverID = driverID;
+    }
+
+    public void setDriverStatus(DriverStatus state) {
+        this.state = state;
+    }
+
+    public String getNationalId() {
+        return nationalId;
+    }
+
+    public String getDrivingLicense() {
+        return drivingLicense;
+    }
+
+    public int getDriverID() {
+        return driverID;
+    }
+
+    public DriverStatus getState() {
+        return state;
+    }
+
+    public Double rideOffer() {
+        System.out.print("Please enter your offer to this ride");
+        Scanner in = new Scanner(System.in);
+        double price = in.nextDouble();
+        return price;
+
+    }
 //    public ArrayList<Driver> searchAvailableDrive(String src){
 //        ArrayList<Driver> availableDrivers = new ArrayList<>();
 //        if

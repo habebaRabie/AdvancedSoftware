@@ -1,3 +1,4 @@
+package swproject;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -5,19 +6,21 @@ public class userRequestRide {
 
     Ride myRide;
     User user;
-    ArrayList<Driver> myDriver; //myDriver.get(0)
+     //myDriver.get(0)
 
 
     public void userRequest (User client){
         this.user = client;
+        ArrayList<Driver> myDriver = new ArrayList();
         myRide = client.requestUserRide();
-        searchAreas(myRide.getSource());
+        myDriver = searchAreas(myRide.getSource());
 //        listAllRides(myDriver.get(0));
 //        return myDriver;
     }
 
-    public void searchAreas(String source){ //on the user point of view
+    public  ArrayList<Driver> searchAreas(String source){ //on the user point of view
         ArrayList<Driver> myavailableDrivers = Admin.getAllDrivers();
+        ArrayList<Driver> myDriver = new ArrayList();
         for(Driver driver: myavailableDrivers){
             for(String area: driver.getMyAreas()){
                 if(myRide.source == area){
@@ -26,6 +29,7 @@ public class userRequestRide {
                 }
             }
         }
+        return myDriver;
     }
 
 //    public void listAllRides(Driver driver){ //on the user point of view

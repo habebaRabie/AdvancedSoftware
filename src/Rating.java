@@ -1,3 +1,4 @@
+package swproject;
 import java.util.HashMap;
 
 public class Rating {
