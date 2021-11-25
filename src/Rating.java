@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Rating {
 
-    HashMap<User, Integer> rating = new HashMap<>();
+    HashMap<User, Integer > rating = new HashMap<>();
 
     public void getRating() {
         if (rating.size() == 0) {

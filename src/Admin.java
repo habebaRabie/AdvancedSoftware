@@ -1,6 +1,4 @@
 
-
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -8,13 +6,13 @@ import java.util.Scanner;
 public class Admin extends Person {
 
     static Person admin = new Admin();
-    static ArrayList<Driver> ALLdrivers = new ArrayList<Driver>();
+    static private ArrayList<Driver> ALLdrivers = new ArrayList<Driver>();
 
-    static ArrayList<User> users = new ArrayList<User>();//after login users.add(active logged user)
-    static ArrayList<Driver> drivers = new ArrayList<Driver>();
-    
-    static ArrayList<User> suspendUsers = new ArrayList<User>();
-    static ArrayList<Driver> suspendDrivers = new ArrayList<Driver>();
+    static private ArrayList<User> users = new ArrayList<User>();//after login users.add(active logged user)
+    static private ArrayList<Driver> drivers = new ArrayList<Driver>();
+
+    static private ArrayList<User> suspendUsers = new ArrayList<User>();
+    static private ArrayList<Driver> suspendDrivers = new ArrayList<Driver>();
 
     static public void suspend(Person person) {
         System.out.println("Please enter the userName");
@@ -25,7 +23,7 @@ public class Admin extends Person {
             for (User u : users) {
                 if (person == u) {
                     u.setStatus(UserStatus.SUSPENDED);
-                    
+
                 }
             }
         } else {
@@ -34,13 +32,12 @@ public class Admin extends Person {
             for (Driver d : drivers) {
                 if (person == d) {
                     d.setDriverStatus(DriverStatus.SUSPENDED);
-                    
+
                 }
             }
         }
     }
-    
-    
+
     public void verifySuspendDriver() {
         ArrayList<Driver> driv = new ArrayList<Driver>();
         if (suspendDrivers.size() == 0) {
@@ -63,6 +60,7 @@ public class Admin extends Person {
         }
         driv.removeAll(driv);
     }
+
     public void verifySuspendUser() {
         ArrayList<User> use = new ArrayList<User>();
         if (suspendUsers.size() == 0) {
@@ -85,7 +83,6 @@ public class Admin extends Person {
         }
         use.removeAll(use);
     }
-    
 
     public Boolean searchUser(String userName) {
         for (User user : users) {
@@ -182,6 +179,9 @@ public class Admin extends Person {
                 driv.add(driver);
                 driver.setDriverStatus(DriverStatus.ACTIVE);
                 addActiveDriver(driver);
+            } else if (answer == 2) {
+            } else {
+                System.out.println("wrong choise");
             }
         }
         for (Driver driver : driv) {

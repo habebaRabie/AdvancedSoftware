@@ -49,13 +49,17 @@ public class Main {
                     break;}
 
                 for (HashMap.Entry<User, userRequestRide> rideDriver : allUserRides.entrySet()) {
-                    if (rideDriver.getKey() == user) {
-                        
+                    if (rideDriver.getKey() == user) {    
                         System.out.println(rideDriver.getValue().getRideDriver().getUserName());
                         System.out.println("Do you want to rate this driver\n 1-Yes\n 2-No");
                         int ch = chooseDriver.nextInt();
                         if (ch == 1) {
                             user.rateDriver(rideDriver.getValue().getRideDriver());
+                        }
+                        else if(ch == 2){
+                        }
+                        else{
+                         System.out.println("wrong choise");
                         }
                     }
 
@@ -85,6 +89,10 @@ public class Main {
                         int ch = chooseDriver.nextInt();
                         if (ch == 1) {
                             System.out.println(rideDriver.getValue().getRideDriver().getAvgRate());
+                        } else if(ch == 2){
+                        }
+                        else{
+                         System.out.println("wrong choise");
                         }
                     }
 
@@ -281,3 +289,5 @@ public class Main {
 
     }
 }
+
+
