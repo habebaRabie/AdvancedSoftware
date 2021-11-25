@@ -98,38 +98,13 @@ public class User extends Person {
             System.out.println("Wrong password or user name");
         }
         else {
-            System.out.println("There is no user with this name");
+            System.out.println("There is no user with this name or your account is suspended");
         }
 
         return null;
     }
 
-    /*public User login(){
-        ArrayList<User> allUsers = Admin.getAllUsers();
-        System.out.println("Please enter your username and password");
-        Scanner input = new Scanner(System.in);
-        userName = input.nextLine();
-        password = input.nextLine();
-        for(User user: allUsers){
-            if(user.userName.equals(userName) ){
-                if(user.password.equals(password) ){
-                    System.out.println("Logged in successfully");
-                    user.status = UserStatus.ACTIVE;
-                    return user;
-                }
-                else{
-                System.out.println("Wrong password");
-                return null;
-                }
-            }
-            else{
-            System.out.println("Wrong username");
-             return null;
-            }
-        }
-        return null;
-    }
-     */
+   
     public Ride requestUserRide() {
         Ride ride = new Ride();
         return ride.requestRide();
@@ -139,15 +114,7 @@ public class User extends Person {
         this.rideRequest = rideRequest;
     }
 
-    /*public void requestRide() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Where are you?");
-        String source = input.nextLine();
-        System.out.print("Where do you want to go?");
-        String destination = input.nextLine();
-        
-        Ride ride = new Ride(source, destination);
-    }*/
+   
     public void rateDriver(Driver driver) {
         driver.setMyRate(this);
     }

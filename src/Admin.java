@@ -1,5 +1,6 @@
 
 
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -11,26 +12,80 @@ public class Admin extends Person {
 
     static ArrayList<User> users = new ArrayList<User>();//after login users.add(active logged user)
     static ArrayList<Driver> drivers = new ArrayList<Driver>();
+    
+    static ArrayList<User> suspendUsers = new ArrayList<User>();
+    static ArrayList<Driver> suspendDrivers = new ArrayList<Driver>();
 
     static public void suspend(Person person) {
         System.out.println("Please enter the userName");
 
         if (person instanceof User) {
+            suspendUsers.add((User) person);
             removeUser((User) person);
             for (User u : users) {
                 if (person == u) {
                     u.setStatus(UserStatus.SUSPENDED);
+                    
                 }
             }
         } else {
+            suspendDrivers.add((Driver) person);
             removeDriver((Driver) person);
             for (Driver d : drivers) {
                 if (person == d) {
                     d.setDriverStatus(DriverStatus.SUSPENDED);
+                    
                 }
             }
         }
     }
+    
+    
+    public void verifySuspendDriver() {
+        ArrayList<Driver> driv = new ArrayList<Driver>();
+        if (suspendDrivers.size() == 0) {
+            System.out.println("there is no drivers need to be verified");
+            return;
+        }
+        for (Driver driver : suspendDrivers) {
+            System.out.println("Do you want to active " + driver.getUserName() + "\n1- Yes\n2- No");
+
+            Scanner choice = new Scanner(System.in);
+            int answer = choice.nextInt();
+            if (answer == 1) {
+                driv.add(driver);
+                driver.setDriverStatus(DriverStatus.ACTIVE);
+                addActiveDriver(driver);
+            }
+        }
+        for (Driver driver : driv) {
+            suspendDrivers.remove(driver);
+        }
+        driv.removeAll(driv);
+    }
+    public void verifySuspendUser() {
+        ArrayList<User> use = new ArrayList<User>();
+        if (suspendUsers.size() == 0) {
+            System.out.println("there is no users need to be verified");
+            return;
+        }
+        for (User user : suspendUsers) {
+            System.out.println("Do you want to active " + user.getUserName() + "\n1- Yes\n2- No");
+
+            Scanner choice = new Scanner(System.in);
+            int answer = choice.nextInt();
+            if (answer == 1) {
+                use.add(user);
+                user.setStatus(UserStatus.ACTIVE);
+                addActiveUser(user);
+            }
+        }
+        for (User driver : use) {
+            suspendUsers.remove(driver);
+        }
+        use.removeAll(use);
+    }
+    
 
     public Boolean searchUser(String userName) {
         for (User user : users) {
