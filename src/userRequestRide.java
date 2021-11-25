@@ -28,6 +28,7 @@ public class userRequestRide {
         myDriver = searchAreas(myRide.getSource());
         if (myDriver.size() == 0) {
             System.out.println("There are no driver in this place");
+            myRide.setMystatus(rideStatus.REJECTED);
             return;
         }
         // System.out.println(myDriver.get(0).userName);

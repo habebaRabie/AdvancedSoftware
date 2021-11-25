@@ -63,12 +63,13 @@ public class Main {
                 }
                 System.out.println("Please choose the driver you want to rate");
                 //get(chooseDriver.nextInt()-1)
-                if (chooseDriver.nextInt() > allUserRides.size()) {
+                int ch = chooseDriver.nextInt();
+                if (ch > allUserRides.size()) {
                     System.out.println("worng choice");
                     actUser();
                     break;
                 }
-                user.rateDriver(allUserRides.get(chooseDriver.nextInt() - 1).getRideDriver());
+                user.rateDriver(allUserRides.get(ch - 1).getRideDriver());
                 actUser();
                 break;
             case "3":
