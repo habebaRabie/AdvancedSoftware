@@ -53,6 +53,9 @@ public class Admin extends Person {
                 driv.add(driver);
                 driver.setDriverStatus(DriverStatus.ACTIVE);
                 addActiveDriver(driver);
+            } else if (answer == 2) {
+            } else {
+                System.out.println("wrong choise");
             }
         }
         for (Driver driver : driv) {
@@ -76,6 +79,9 @@ public class Admin extends Person {
                 use.add(user);
                 user.setStatus(UserStatus.ACTIVE);
                 addActiveUser(user);
+            } else if (answer == 2) {
+            } else {
+                System.out.println("wrong choise");
             }
         }
         for (User driver : use) {
@@ -141,7 +147,7 @@ public class Admin extends Person {
     }
 
     public static Boolean searchDriver(Driver driver) {
-        if (ALLdrivers.contains(driver)) {
+        if (ALLdrivers.contains(driver) ||suspendDrivers.contains(driver)) {
             return true;
         } else {
             return false;
