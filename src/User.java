@@ -1,9 +1,12 @@
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
-enum UserStatus {ACTIVE, SUSPENDED, INRIDE, WAITING, OFFLINE}
+enum UserStatus {
+    ACTIVE, SUSPENDED, INRIDE, WAITING, OFFLINE
+}
 
-public class User extends Person{
+public class User extends Person {
 
     private int userID;
     private UserStatus status;
@@ -54,7 +57,7 @@ public class User extends Person{
     public int getUserID() {
         return userID;
     }
-    
+
     public void register() {
         Scanner input = new Scanner(System.in);
         System.out.println("Please enter your information: ");
@@ -66,30 +69,60 @@ public class User extends Person{
         email = input.nextLine();
         System.out.println("Phone Number: ");
         phoneNumber = input.nextLine();
-       // status = UserStatus.ACTIVE;
+        // status = UserStatus.ACTIVE;
         Admin.addActiveUser(this);
     }
 
-    public void login(){
+    static User loginUser() {
+        ArrayList<User> allUsers = Admin.getAllUsers();
+        System.out.println("Please enter your username and password");
+        Scanner input = new Scanner(System.in);
+        String Name = input.nextLine();
+        String pass = input.nextLine();
+        for (User user : allUsers) {
+            if (user.getUserName().equals(Name)) {
+                if (user.getPassword().equals(pass)) {
+                    System.out.println("Logged in successfully");
+                    user.setStatus(UserStatus.ACTIVE); //= UserStatus.ACTIVE;
+                    return user;
+                } else {
+                    System.out.println("Wrong password");
+                    return null;
+                }
+            }
+
+        }
+        System.out.println("Wrong password or user name");
+        return null;
+    }
+
+    /*public User login(){
         ArrayList<User> allUsers = Admin.getAllUsers();
         System.out.println("Please enter your username and password");
         Scanner input = new Scanner(System.in);
         userName = input.nextLine();
         password = input.nextLine();
         for(User user: allUsers){
-            if(user.userName == userName){
-                if(user.password == password){
+            if(user.userName.equals(userName) ){
+                if(user.password.equals(password) ){
                     System.out.println("Logged in successfully");
-                    status = UserStatus.ACTIVE;
-                    break;
+                    user.status = UserStatus.ACTIVE;
+                    return user;
                 }
+                else{
                 System.out.println("Wrong password");
+                return null;
+                }
             }
+            else{
             System.out.println("Wrong username");
+             return null;
+            }
         }
+        return null;
     }
-
-    public Ride requestUserRide(){
+     */
+    public Ride requestUserRide() {
         Ride ride = new Ride();
         return ride.requestRide();
     }
@@ -107,7 +140,7 @@ public class User extends Person{
         
         Ride ride = new Ride(source, destination);
     }*/
-    public void rateDriver(Driver driver){
+    public void rateDriver(Driver driver) {
         driver.setMyRate(this);
     }
 }

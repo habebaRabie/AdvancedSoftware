@@ -1,12 +1,16 @@
+
 import java.util.Scanner;
 
-enum rideStatus {ACCEPTED, REJECTED, PENDINGDRIVER, PENDINGUSER}
+enum rideStatus {
+    ACCEPTED, REJECTED, PENDINGDRIVER, PENDINGUSER
+}
 
 public class Ride {
-    String source;
-    String destnation;
-    double price;
-    rideStatus mystatus ;
+
+    private String source;
+    private String destnation;
+    private double price;
+    private rideStatus mystatus;
 
     public rideStatus getMystatus() {
         return mystatus;
@@ -45,14 +49,14 @@ public class Ride {
         this.destnation = destnation;
     }
 
-    public Ride requestRide(){
+    public Ride requestRide() {
         System.out.println("please enter your location");
         Scanner in = new Scanner(System.in);
         String src = in.next();
         System.out.println("please enter the location of destination");
         //Scanner in = new Scanner(System.in);
         String des = in.next();
-        Ride myRide = new Ride(src , des);
+        Ride myRide = new Ride(src, des);
         return myRide;
     }
 
@@ -61,10 +65,10 @@ public class Ride {
 
     @Override
     public String toString() {
-        return "Ride{" +
-                "source='" + source + '\'' +
-                ", destnation='" + destnation + '\'' +
-                ", price=" + price +
-                '}';
+        return "Ride{"
+                + "source='" + source + '\''
+                + ", destnation='" + destnation + '\''
+                + ", price=" + price
+                + '}';
     }
 }

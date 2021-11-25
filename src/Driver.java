@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,15 +12,13 @@ public class Driver extends Person {
     private String nationalId;
     private String drivingLicense;
     private DriverStatus state = DriverStatus.PENDING;
-    private ArrayList<Ride> myRides;
-    private Rating myRate;
-    private DriverAreas myAreas;
+    private ArrayList<Ride> myRides = new ArrayList<>();
+    private Rating myRate = new Rating();
+    private DriverAreas myAreas = new DriverAreas();
 
     public double getAvgRate() {
         return myRate.calcAvgRate();
     }
-
-
 
     public ArrayList<Ride> getMyRides() {
         return myRides;
@@ -33,8 +32,8 @@ public class Driver extends Person {
         return myAreas.getAllArea();
     }
 
-    public void setMyAreas(String area) {
-        myAreas.addFavAreas(area);
+    public void setMyAreas() {
+        myAreas.addFavAreas();
     }
 
     public void register() {
@@ -53,33 +52,31 @@ public class Driver extends Person {
         Admin.addDriverToSystem(this);
     }
 
-    public Boolean login(){
+    static Driver loginDriver() {
         ArrayList<Driver> allDrivers = Admin.getAllDrivers();
+        //allDrivers.add(Admin.getAllDrivers());
         System.out.println("Please enter your username and password");
         Scanner input = new Scanner(System.in);
         String name = input.nextLine();
         String pass = input.nextLine();
-        for(Driver driver: allDrivers){
-            if(driver.userName.equals(name) ){
-                if(driver.password.equals(pass) ){
-                    if(state == DriverStatus.ACTIVE){
-                        System.out.println("Logged in successfully");
-                        return true;
-                    }else{
-                        System.out.println("Please wait until the verification of your account finish");
-                    }
+        for (Driver driver : allDrivers) {
+            if (driver.getUserName().equals(name)) {
+                if (driver.getPassword().equals(pass) && driver.state == DriverStatus.ACTIVE) {
+                    System.out.println("Logged in successfully");
+                    return driver;
+                } else {
+                    System.out.println("Wrong password");
+                    return null;
                 }
-                System.out.println("Wrong password");
             }
-            System.out.println("Wrong username");
         }
-        return false;
+        System.out.println("Please wait until the verification of your account finish");
+        return null;
     }
 
-
     Driver(String userName, String password,
-           String email, String phoneNumber,
-           String nationalId, String drivingLicense, int driverID) {
+            String email, String phoneNumber,
+            String nationalId, String drivingLicense, int driverID) {
 
         super(userName, password, email, phoneNumber);
         this.nationalId = nationalId;
@@ -141,7 +138,5 @@ public class Driver extends Person {
     public void setMyRate(User user) {
         myRate.setRating(user);
     }
-
-
 
 }

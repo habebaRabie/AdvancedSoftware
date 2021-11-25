@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -7,7 +8,6 @@ public class userRequestRide {
     Ride myRide;
     User user;
     Driver rideDriver;
-
 
     public Ride getMyRide() {
         return myRide;
@@ -21,20 +21,25 @@ public class userRequestRide {
         return rideDriver;
     }
 
-    public void userRequest (User client){
+    public void userRequest(User client) {
         this.user = client;
         ArrayList<Driver> myDriver = new ArrayList();
         myRide = client.requestUserRide();
         myDriver = searchAreas(myRide.getSource());
+        if (myDriver.size() == 0) {
+            System.out.println("There are no driver in this place");
+            return;
+        }
+        // System.out.println(myDriver.get(0).userName);
         driverRequest(myDriver);
     }
 
-    public  ArrayList<Driver> searchAreas(String source){ //on the user point of view
+    public ArrayList<Driver> searchAreas(String source) { //on the user point of view
         ArrayList<Driver> myavailableDrivers = Admin.getAllDrivers();
         ArrayList<Driver> myDriver = new ArrayList();
-        for(Driver driver: myavailableDrivers){
-            for(String area: driver.getMyAreas()){
-                if(myRide.source == area){
+        for (Driver driver : myavailableDrivers) {
+            for (String area : driver.getMyAreas()) {
+                if (myRide.getSource().equals(area)) {
                     myDriver.add(driver);
                     break;
                 }
@@ -47,7 +52,7 @@ public class userRequestRide {
     public void driverRequest(ArrayList<Driver> myDriver) {
         HashMap<Driver, Double> offers = new HashMap<Driver, Double>();
         for (Driver driver : myDriver) {
-            System.out.println("The ride is from " + myRide.source + " to " + myRide.destnation);
+            System.out.println("The ride is from " + myRide.getSource() + " to " + myRide.getDestnation());
             double driverOffer = driver.rideOffer();
             offers.put(driver, driverOffer);
         }//Map.Entry<String, Tab> entry : hash.entrySet()
@@ -56,7 +61,7 @@ public class userRequestRide {
             System.out.println(i + " - the driver name is : " + offr.getKey().userName + " the offer is : " + offr.getValue());
             i++;
         }
-        if(i == 1){
+        if (i == 1) {
             System.out.println("No Drivers is valid right now");
             return;
         }
@@ -70,13 +75,13 @@ public class userRequestRide {
             //Driver selectedOfferDriver = null;
 
             int counter = 1;
-            for(Driver driver: offers.keySet()){
-                if(counter == choice){
+            for (Driver driver : offers.keySet()) {
+                if (counter == choice) {
                     rideDriver = driver;
-                    myRide.price = offers.get(driver);
+                    myRide.setPrice(offers.get(driver));
                     break;
                 }
-                counter ++;
+                counter++;
             }
             rideDriver.setDriverStatus(DriverStatus.INDRIVE);
             rideDriver.setMyRides(myRide);
