@@ -1,4 +1,4 @@
-
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -40,6 +40,7 @@ public class Admin extends Person {
 
     public void verifySuspendDriver() {
         ArrayList<Driver> driv = new ArrayList<Driver>();
+
         if (suspendDrivers.size() == 0) {
             System.out.println("there is no drivers need to be verified");
             return;

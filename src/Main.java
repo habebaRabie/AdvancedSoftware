@@ -239,13 +239,13 @@ public class Main{
                     Scanner choice2 = new Scanner(System.in);
                     switch (choice2.nextLine()) {
                         case "1":
-                            user = User.loginUser();
+                            user = User.logindb();
                             if (user != null) {
                                 actUser();
                             }
                             break;
                         case "2":
-                            driver = Driver.loginDriver();
+                            driver = Driver.logindb();
                             if (driver == null) {
                                 break;
                             } else {//logged in

@@ -1,4 +1,4 @@
-
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -25,6 +25,20 @@ public class userRequestRide {
         this.user = client;
         ArrayList<Driver> myDriver = new ArrayList();
         myRide = client.requestUserRide();
+        
+        String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
+        String query = "insert into ride (user, source, destination, status) values (?, ?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement ins = conn.prepareStatement(query);
+            ins.setString(1, user.getUserName());
+            ins.setString(2, myRide.getSource());
+            ins.setString(3, myRide.getDestnation());
+            ins.setString(4, "PENDINGDRIVER");
+            ins.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
         myDriver = searchAreas(myRide.getSource());
         if (myDriver.size() == 0) {
             System.out.println("There are no driver in this place");
