@@ -11,29 +11,15 @@ enum UserStatus {
 
 public class User extends Person {
 
-    private int userID;
     private UserStatus status;
-    private static int count;
     userRequestRide rideRequest;
 
     public void setStatus(UserStatus status) {
         this.status = status;
     }
 
-    public static void setCount(int count) {
-        User.count = count;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
     public UserStatus getStatus() {
         return status;
-    }
-
-    public static int getCount() {
-        return count;
     }
 
     public userRequestRide getRideRequest() {
@@ -41,24 +27,11 @@ public class User extends Person {
     }
 
     public User() {
-        this.userID = count;
         this.status = UserStatus.ACTIVE;
-        count++;
-    }
-
-    @Override
-    public String getUserName() {
-        return this.userName;
     }
 
     public User(int userID, String userName, String password, String email, String phoneNumber) {
         super(userName, password, email, phoneNumber);
-        this.userID = count;
-        count++;
-    }
-
-    public int getUserID() {
-        return userID;
     }
 
     public void register() {
@@ -73,10 +46,7 @@ public class User extends Person {
         email = input.nextLine();
         System.out.println("Phone Number: ");
         phoneNumber = input.nextLine();
-        // status = UserStatus.ACTIVE;
-        Admin.addActiveUser(this);
-
-
+        
         String sql = "insert into user (username, password, email, phone, status) values (?, ?, ?, ?, ?)";
         try {
             Class.forName("org.sqlite.JDBC");
@@ -94,6 +64,7 @@ public class User extends Person {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("User has been registered successfully");
 
     }
 
@@ -109,7 +80,7 @@ public class User extends Person {
                 found = true;
                 if (user.getPassword().equals(pass)) {
                     System.out.println("Logged in successfully");
-                    user.setStatus(UserStatus.ACTIVE); //= UserStatus.ACTIVE;
+                    user.setStatus(UserStatus.ACTIVE); 
                     return user;
                 } else {
                     System.out.println("Wrong password");
@@ -128,7 +99,7 @@ public class User extends Person {
         return null;
     }
 
-    static User logindb() {
+    static User login() {
         String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
         System.out.println("Please enter your username and password");
         Scanner input = new Scanner(System.in);
@@ -156,10 +127,16 @@ public class User extends Person {
                             UserStatus s = UserStatus.valueOf(status);
                             u.setStatus(s);
                         }
+                        if (u.getStatus().equals(UserStatus.SUSPENDED)){
+                            System.out.println("Please wait until the verification of your account finish");
+                            return null;
+                        }
+                        else{
                         System.out.println("Logged in successfully");
                         return u;
+                        }
                     } else {
-                        System.out.println("Wrong password or user name");
+                        System.out.println("Wrong username or password");
                         return null;
                     }
                 }

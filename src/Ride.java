@@ -1,6 +1,4 @@
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 enum rideStatus {
     ACCEPTED, REJECTED, PENDINGDRIVER, PENDINGUSER

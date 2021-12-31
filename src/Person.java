@@ -32,7 +32,9 @@ abstract class Person {
         this.phoneNumber = phoneNumber;
     }
 
-    abstract public String getUserName();
+    public String getUserName(){
+        return this.userName;
+    }
 
     public String getPassword() {
         return password;
@@ -45,5 +47,5 @@ abstract class Person {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-
+    
 }

@@ -1,4 +1,5 @@
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,7 +13,15 @@ public class DriverAreas {
         favouriteArea.add(inputArea.nextLine());
     }
 
+    public void addFavArea(String area) {
+        favouriteArea.add(area);
+    }
+
     public ArrayList<String> getAllArea() {
         return favouriteArea;
+    }
+
+    public String getLastaddedArea() {
+        return favouriteArea.get(favouriteArea.size() - 1);
     }
 }
