@@ -40,12 +40,12 @@ abstract class Person {
         return password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public String getPhoneNumber() {
+//        return phoneNumber;
+//    }
     
 }

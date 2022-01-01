@@ -7,10 +7,10 @@ public class DriverAreas {
 
     ArrayList<String> favouriteArea = new ArrayList<>();
 
-    public void addFavAreas() {
-        System.out.println("Enter the area you want to add");
-        Scanner inputArea = new Scanner(System.in);
-        favouriteArea.add(inputArea.nextLine());
+    public void addFavAreas(String inputArea) {
+       // System.out.println("Enter the area you want to add");
+//        Scanner inputArea = new Scanner(System.in);
+        favouriteArea.add(inputArea);
     }
 
     public void addFavArea(String area) {
