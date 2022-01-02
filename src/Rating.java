@@ -31,11 +31,7 @@ public class Rating {
         }
     }
 
-    public void setRating(User user, Driver driver) {
-        System.out.println("Please rate the selected driver");
-        Scanner input = new Scanner(System.in);
-        int rate = input.nextInt();
-
+    public void setRating(User user, Driver driver, int rate) {
         String query = "insert into rating (driver, user, rating) values (?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(Admin.url)) {
             PreparedStatement ins = conn.prepareStatement(query);
@@ -46,8 +42,6 @@ public class Rating {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        
-//        rating.put(user, rate);
     }
 
     public double calcAvgRate(Driver driver) {

@@ -94,14 +94,4 @@ public class User extends Person {
         }
         return  null;
     }
-//TODO//////////////////////////////////
-
-//    public void rateDriver(Driver driver) {
-//        driver.setMyRate(this);
-//    }
-
-//    public void setRideRequest(userRequestRide rideRequest) {
-//        this.rideRequest = rideRequest;
-//    }
-
 }

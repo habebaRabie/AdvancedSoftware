@@ -32,7 +32,7 @@ public class DriverController {
         }
     }
 
-    public ArrayList<String> ChooseRifr(String username){
+    public ArrayList<String> ChooseRide(String username){
         ArrayList<String> rides = new ArrayList<>();
         String sql = "select RideID from RideRequest where username = " + username;
         try(Connection con = DriverManager.getConnection(Admin.url)) {
@@ -40,7 +40,7 @@ public class DriverController {
              while (Rs.next()){
                  rides.add(String.valueOf(Rs.getInt("RideID")));
              }
-        } catch (SQLException e) {
+        }catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return rides;
