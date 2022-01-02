@@ -6,7 +6,7 @@ import java.util.ArrayList;
 //import java.util.HashMap;
 //import java.util.Scanner;
 //
-public class DriverRide {
+public class DriverController {
     static ArrayList<String> drivers = new ArrayList<>();
 
     public static void driversACTIVE(int RideID){
@@ -31,21 +31,32 @@ public class DriverRide {
         }
     }
 
-//    public void driverSetPrice(){
-//        double price = 0;
-//
-//        for(String driver: drivers){
-//            String sql = "update RideRequest set price = ? where username = ?";
-//            try(Connection con = DriverManager.getConnection(Admin.url)) {
-//                PreparedStatement ins = con.prepareStatement(sql);
-//                ins.setDouble(1, price);
-//                ins.setString(2, driver);
-//                ins.executeUpdate();
-//            } catch (SQLException e) {
-//                System.out.println(e.getMessage());
-//            }
-//        }
-//    }
+    public ArrayList<String> ChooseRifr(String username){
+        ArrayList<String> rides = new ArrayList<>();
+        String sql = "select RideID from RideRequest where username = " + username;
+        try(Connection con = DriverManager.getConnection(Admin.url)) {
+             ResultSet Rs = con.createStatement().executeQuery(sql);
+             while (Rs.next()){
+                 rides.add(String.valueOf(Rs.getInt("RideID")));
+             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return rides;
+    }
+
+    public void driverSetPrice(String username , double price , int rideID){
+            String sql = "update RideRequest set price = ? where username = ? and RideID =?" ;
+            try(Connection con = DriverManager.getConnection(Admin.url)) {
+                PreparedStatement ins = con.prepareStatement(sql);
+                ins.setDouble(1, price);
+                ins.setString(2, username);
+                ins.setInt(3, rideID);
+                ins.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
 //
 //    Ride myRide;

@@ -49,7 +49,7 @@ public abstract class Ride {
             System.out.println(e.getMessage());
         }
         System.out.println("");
-        DriverRide.driversACTIVE(RideId);
+        DriverController.driversACTIVE(RideId);
         return RideId;
 
         //Ride ride = new Ride();
