@@ -11,6 +11,7 @@ enum rideStatus {
 public abstract class Ride {
 
     String description="New Ride";
+    Event event = new Event();
 
     public String getDescription(){
         return description;
@@ -54,7 +55,7 @@ public abstract class Ride {
         //return ride.requestRide();
     }
 
-    public ArrayList<String> RidePrice(int RideId){
+    public ArrayList<String> RidePrice(int RideId) {
         ArrayList<String> Result = new ArrayList<>();
         String req , user =  "", destination ="";
         double price = 0, passengersNumber=0;
@@ -143,6 +144,9 @@ public abstract class Ride {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
+
+
         String sql2 = "UPDATE ride SET price ='?' , driver ='?' where rideID = ?" ;
         try(Connection conn = DriverManager.getConnection(url)) {
             PreparedStatement ins = conn.prepareStatement(sql2);
@@ -153,7 +157,21 @@ public abstract class Ride {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
+        String sql3 = "select user, date from ride where rideID = " + RideID;
+        try (Connection conn = DriverManager.getConnection(url)) {
+            ResultSet RS = conn.createStatement().executeQuery(sql3);
+            String username =RS.getString("user");
+            Date d = RS.getDate("date");
+            String date = d.toString();
+            event.event2(date, username);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
+
+
 
   /*  public rideStatus getMystatus() {
         return mystatus;
