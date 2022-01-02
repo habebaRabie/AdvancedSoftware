@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class DriverController {
     static ArrayList<String> drivers = new ArrayList<>();
 
-    Event event = new Event();
+    EventController event = new EventController();
     public static void driversACTIVE(int RideID){
         String sql = "select username from driver where status = 'ACTIVE' ";
         try (Connection conn = DriverManager.getConnection(Admin.url)) {
