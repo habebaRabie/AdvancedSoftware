@@ -1,3 +1,8 @@
+package Controller;
+
+import ModulesPackage.*;
+import Discount.*;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -32,7 +37,7 @@ public class RideController {
         DriverController.driversACTIVE(RideId);
         return RideId;
 
-        //Ride ride = new Ride();
+        //ModulesPackage.Ride ride = new ModulesPackage.Ride();
         //return ride.requestRide();
     }
 

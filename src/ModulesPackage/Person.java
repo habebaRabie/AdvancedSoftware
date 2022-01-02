@@ -1,13 +1,11 @@
+package ModulesPackage;
 
-abstract class Person {
+public abstract class Person {
 
     protected String userName;
     protected String password;
     protected String email;
     protected String phoneNumber;
-
-    Person() {
-    }
 
     Person(String userName, String password, String email, String phoneNumber) {
         this.userName = userName;
@@ -15,6 +13,8 @@ abstract class Person {
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
+
+    public Person() {}
 
     public void setUserName(String userName) {
         this.userName = userName;
@@ -40,12 +40,12 @@ abstract class Person {
         return password;
     }
 
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public String getPhoneNumber() {
-//        return phoneNumber;
-//    }
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
     
 }

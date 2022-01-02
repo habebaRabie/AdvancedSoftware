@@ -1,21 +1,14 @@
+package Controller;
+
+import ModulesPackage.*;
+import Controller.*;
+import ModulesPackage.Driver;
+
 import java.sql.*;
-import java.util.Scanner;
 
 public class Rating {
-
-//    HashMap<User, Integer > rating = new HashMap<>();
-
-//    public void getRating() {
-//        if (rating.size() == 0) {
-//            System.out.println("No user rated you yet");
-//            return;
-//        }
-//        for (HashMap.Entry<User, Integer> rate : rating.entrySet()) {
-//            System.out.println(rate.getKey().getUserName() + " rating is : " + rate.getValue());
-//        }
-//    }
     
-    public void printRatings(Driver driver){
+    public void printRatings(ModulesPackage.Driver driver){
         String query = "select user,rating from rating where driver = " + driver.getUserName();
         try ( Connection conn = DriverManager.getConnection(Admin.url)) {
             Statement stmt = conn.createStatement();
@@ -44,7 +37,7 @@ public class Rating {
         }
     }
 
-    public double calcAvgRate(Driver driver) {
+    public double calcAvgRate(ModulesPackage.Driver driver) {
         String query = "select avg(rating) from rating where driver = " + driver.getUserName();
         try ( Connection conn = DriverManager.getConnection(Admin.url)) {
             Statement stmt = conn.createStatement();

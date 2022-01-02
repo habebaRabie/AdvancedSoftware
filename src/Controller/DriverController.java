@@ -1,11 +1,9 @@
+package Controller;
+
 import java.sql.*;
 import java.util.ArrayList;
+import ModulesPackage.*;
 
-//import java.sql.*;
-//import java.util.ArrayList;
-//import java.util.HashMap;
-//import java.util.Scanner;
-//
 public class DriverController {
     static ArrayList<String> drivers = new ArrayList<>();
 
@@ -69,25 +67,25 @@ public class DriverController {
         }
 
 //
-//    Ride myRide;
-//    User user;
-//    Driver rideDriver;
+//    ModulesPackage.Ride myRide;
+//    UserPackage.User user;
+//    ModulesPackage.Driver rideDriver;
 //
-//    public Ride getMyRide() {
+//    public ModulesPackage.Ride getMyRide() {
 //        return myRide;
 //    }
 //
-//    public User getUser() {
+//    public UserPackage.User getUser() {
 //        return user;
 //    }
 //
-//    public Driver getRideDriver() {
+//    public ModulesPackage.Driver getRideDriver() {
 //        return rideDriver;
 //    }
 //
-//    public void userRequest(User client) {
+//    public void userRequest(UserPackage.User client) {
 //        this.user = client;
-//        ArrayList<Driver.Driver> myDriver = new ArrayList();
+//        ArrayList<ModulesPackage.Driver.ModulesPackage.Driver> myDriver = new ArrayList();
 //        myRide = client.requestUserRide();
 //
 //        String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
@@ -106,17 +104,17 @@ public class DriverController {
 //        myDriver = searchAreas(myRide.getSource());
 //        if (myDriver.size() == 0) {
 //            System.out.println("There are no driver in this place");
-//            myRide.setMystatus(Ride.rideStatus.REJECTED);
+//            myRide.setMystatus(ModulesPackage.Ride.rideStatus.REJECTED);
 //            return;
 //        }
 //        // System.out.println(myDriver.get(0).userName);
 //        driverRequest(myDriver);
 //    }
 //
-//    public ArrayList<Driver> searchAreas(String source) { //on the user point of view
-//        ArrayList<Driver> myavailableDrivers = Admin.Admin.getAllDrivers();
-//        ArrayList<Driver> myDriver = new ArrayList();
-//        for (Driver driver : myavailableDrivers) {
+//    public ArrayList<ModulesPackage.Driver> searchAreas(String source) { //on the user point of view
+//        ArrayList<ModulesPackage.Driver> myavailableDrivers = ModulesPackage.Admin.ModulesPackage.Admin.getAllDrivers();
+//        ArrayList<ModulesPackage.Driver> myDriver = new ArrayList();
+//        for (ModulesPackage.Driver driver : myavailableDrivers) {
 //            for (String area : driver.getMyAreas()) {
 //                if (myRide.getSource().equals(area)) {
 //                    myDriver.add(driver);
@@ -128,9 +126,9 @@ public class DriverController {
 //        return myDriver;
 //    }
 //
-//    public void driverRequest(ArrayList<Driver> myDriver) {
-//        HashMap<Driver.Driver, Double> offers = new HashMap<Driver.Driver, Double>();
-//        for (Driver driver : myDriver) {
+//    public void driverRequest(ArrayList<ModulesPackage.Driver> myDriver) {
+//        HashMap<ModulesPackage.Driver.ModulesPackage.Driver, Double> offers = new HashMap<ModulesPackage.Driver.ModulesPackage.Driver, Double>();
+//        for (ModulesPackage.Driver driver : myDriver) {
 //            System.out.println("The ride is from " + myRide.getSource() + " to " + myRide.getDestnation());
 //            System.out.print("Please enter your offer to this ride: ");
 //            Scanner in = new Scanner(System.in);
@@ -139,7 +137,7 @@ public class DriverController {
 //            offers.put(driver, driverOffer);
 //        }//Map.Entry<String, Tab> entry : hash.entrySet()
 //        int i = 1;
-//        for (HashMap.Entry<Driver.Driver, Double> offr : offers.entrySet()) {
+//        for (HashMap.Entry<ModulesPackage.Driver.ModulesPackage.Driver, Double> offr : offers.entrySet()) {
 //            System.out.println(i + " - the driver name is : " + offr.getKey().userName + " the offer is : " + offr.getValue());
 //            i++;
 //        }
@@ -154,10 +152,10 @@ public class DriverController {
 //        if (choice == i) { //cancelled
 //            myRide.setMystatus(rideStatus.REJECTED);
 //        } else {
-//            //Driver selectedOfferDriver = null;
+//            //ModulesPackage.Driver selectedOfferDriver = null;
 //
 //            int counter = 1;
-//            for (Driver driver : offers.keySet()) {
+//            for (ModulesPackage.Driver driver : offers.keySet()) {
 //                if (counter == choice) {
 //                    rideDriver = driver;
 //                    myRide.setPrice(offers.get(driver));

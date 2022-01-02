@@ -1,13 +1,5 @@
-import java.sql.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+package ModulesPackage;
 
-enum rideStatus {
-    ACCEPTED, REJECTED, PENDINGDRIVER, PENDINGUSER
-}
 
 public abstract class Ride {
     String Source, destination;
@@ -20,9 +12,12 @@ public abstract class Ride {
         this.description = description;
     }
 
-    String description="New Ride";
+    String description="New ModulesPackage.Ride";
     public String getDescription(){
         return description;
+    }
+    public void setDescription(String description){
+        this.description = description;
     }
     public abstract double cost();
     public static double price;

@@ -1,14 +1,17 @@
+package Discount;
+
+import ModulesPackage.Ride;
 
 public class PassengerNumberDiscount extends Discount {
     Ride ride;
 
-    PassengerNumberDiscount(Ride ride){
+    public PassengerNumberDiscount(Ride ride){
         this.ride = ride;
     }
 
     @Override
     public String getDescription() {
-        return ride.description + " , Passenger Number Discount";
+        return ride.getDescription() + " , Passenger Number Discount.Discount";
     }
 
     @Override

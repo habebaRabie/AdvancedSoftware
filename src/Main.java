@@ -7,22 +7,22 @@
 //import java.util.Scanner;
 //public class Main{
 //
-//    static Admin.Admin myAdmin = new Admin.Admin();
-//    static User.User user;
-//    static Driver.Driver driver;
-//  //  static HashMap<User.User, userRequestRide> allUserRides = new HashMap<>();
-//   // static ArrayList<Driver.Driver> allDrivers = Admin.Admin.getAllDrivers();
-//  //  static HashMap<Driver.Driver, userRequestRide> allRides = new HashMap<>();
+//    static ModulesPackage.Admin.ModulesPackage.Admin myAdmin = new ModulesPackage.Admin.ModulesPackage.Admin();
+//    static UserPackage.User.UserPackage.User user;
+//    static ModulesPackage.Driver.ModulesPackage.Driver driver;
+//  //  static HashMap<UserPackage.User.UserPackage.User, userRequestRide> allUserRides = new HashMap<>();
+//   // static ArrayList<ModulesPackage.Driver.ModulesPackage.Driver> allDrivers = ModulesPackage.Admin.ModulesPackage.Admin.getAllDrivers();
+//  //  static HashMap<ModulesPackage.Driver.ModulesPackage.Driver, userRequestRide> allRides = new HashMap<>();
 //
 //    public static void actUser() {
 //        Scanner input = new Scanner(System.in);
 //        Scanner chooseDriver = new Scanner(System.in);
-//        System.out.println("1- Request Ride.Ride\n2- Rate a driver\n3- Check driver's rating\n4- Exit");
+//        System.out.println("1- Request ModulesPackage.Ride.ModulesPackage.Ride\n2- Rate a driver\n3- Check driver's rating\n4- Exit");
 //        switch (input.nextLine()) {
 //            case "1":
 //                userRequestRide newRide = new userRequestRide();
 //                newRide.userRequest(user);
-//                if (newRide.getMyRide().getMystatus() != Ride.rideStatus.REJECTED) {
+//                if (newRide.getMyRide().getMystatus() != ModulesPackage.Ride.ModulesPackage.rideStatus.REJECTED) {
 //                    allUserRides.put(user, newRide);
 //                    allRides.put(newRide.getRideDriver(), newRide);
 //                }
@@ -35,7 +35,7 @@
 //                    actUser();
 //                    break;
 //                }
-//                for (HashMap.Entry<User.User, userRequestRide> rideDriver : allUserRides.entrySet()) {
+//                for (HashMap.Entry<UserPackage.User.UserPackage.User, userRequestRide> rideDriver : allUserRides.entrySet()) {
 //                    if (rideDriver.getKey() == user) {
 //                       counter++;
 //                        }
@@ -45,7 +45,7 @@
 //                    actUser();
 //                    break;}
 //
-//                for (HashMap.Entry<User.User, userRequestRide> rideDriver : allUserRides.entrySet()) {
+//                for (HashMap.Entry<UserPackage.User.UserPackage.User, userRequestRide> rideDriver : allUserRides.entrySet()) {
 //                    if (rideDriver.getKey() == user) {
 //                        System.out.println(rideDriver.getValue().getRideDriver().getUserName());
 //                        System.out.println("Do you want to rate this driver\n 1-Yes\n 2-No");
@@ -70,7 +70,7 @@
 //                    actUser();
 //                    break;
 //                }
-//                for (HashMap.Entry<User.User, userRequestRide> rideDriver : allUserRides.entrySet()) {
+//                for (HashMap.Entry<UserPackage.User.UserPackage.User, userRequestRide> rideDriver : allUserRides.entrySet()) {
 //                    if (rideDriver.getKey() == user) {
 //                       counter++;
 //                        }
@@ -79,7 +79,7 @@
 //                System.out.println("there is no ride yet");
 //                    actUser();
 //                    break;}
-//                for (HashMap.Entry<User.User, userRequestRide> rideDriver : allUserRides.entrySet()) {
+//                for (HashMap.Entry<UserPackage.User.UserPackage.User, userRequestRide> rideDriver : allUserRides.entrySet()) {
 //                    if (rideDriver.getKey() == user) {
 //                        System.out.println(rideDriver.getValue().getRideDriver().getUserName());
 //                        System.out.println("Do you want to see this driver rating\n 1-Yes\n 2-No");
@@ -118,7 +118,7 @@
 //                    actDriver();
 //                    break;
 //                }
-//                 for (HashMap.Entry<Driver.Driver, userRequestRide> ride : allRides.entrySet()) {
+//                 for (HashMap.Entry<ModulesPackage.Driver.ModulesPackage.Driver, userRequestRide> ride : allRides.entrySet()) {
 //                    if (ride.getKey() == driver) {
 //                       counter++;
 //                    }
@@ -128,7 +128,7 @@
 //                    actDriver();
 //                    break;
 //                }
-//                for (HashMap.Entry<Driver.Driver, userRequestRide> ride : allRides.entrySet()) {
+//                for (HashMap.Entry<ModulesPackage.Driver.ModulesPackage.Driver, userRequestRide> ride : allRides.entrySet()) {
 //                    if (ride.getKey() == driver) {
 //                        System.out.println(ride.getValue().getMyRide());
 //                    }
@@ -153,7 +153,7 @@
 //    }
 //
 //    public static void actAdmin() {
-//        System.out.println("1- Verify all Drivers\n2- Suspend\n3- Verify Suspend Driver.Driver\n4- Verify Suspend Users\n5- Exit");
+//        System.out.println("1- Verify all Drivers\n2- Suspend\n3- Verify Suspend ModulesPackage.Driver.ModulesPackage.Driver\n4- Verify Suspend Users\n5- Exit");
 //        Scanner choice3 = new Scanner(System.in);
 //        switch (choice3.nextLine()) {
 //            case "1":
@@ -161,7 +161,7 @@
 //                actAdmin();
 //                break;
 //            case "2":
-//                System.out.println("1- Suspend User.User\n2- Suspend Driver.Driver\n3- Exit");
+//                System.out.println("1- Suspend UserPackage.User.UserPackage.User\n2- Suspend ModulesPackage.Driver.ModulesPackage.Driver\n3- Exit");
 //                Scanner choice4 = new Scanner(System.in);
 //                switch (choice4.nextLine()) {
 //
@@ -215,17 +215,17 @@
 //            System.out.println("1- Register\n2- Log in\n3- Exit");
 //            switch (input.nextLine()) {
 //                case "1":
-//                    System.out.println("1- Register as User.User\n2- Register as Driver.Driver\n3- Exit");
+//                    System.out.println("1- Register as UserPackage.User.UserPackage.User\n2- Register as ModulesPackage.Driver.ModulesPackage.Driver\n3- Exit");
 //                    Scanner choice = new Scanner(System.in);
 //                    switch (choice.nextLine()) {
 //                        case "1":
-//                            user = new User.User();
+//                            user = new UserPackage.User.UserPackage.User();
 //                            user.register( "userName",  "password",  "email",  "phoneNumber",  "01/02/2022");
 //                            actUser();
 //                            break;
 //
 //                        case "2":
-//                            driver = new Driver.Driver();
+//                            driver = new ModulesPackage.Driver.ModulesPackage.Driver();
 //                            driver.register();
 //                            break;
 //                        case "3":
@@ -237,17 +237,17 @@
 //                    }
 //                    break;
 //                case "2":
-//                    System.out.println("1- Log in as User.User\n2- Log in as Driver.Driver\n3- Log in as Admin.Admin\n4- Exit");
+//                    System.out.println("1- Log in as UserPackage.User.UserPackage.User\n2- Log in as ModulesPackage.Driver.ModulesPackage.Driver\n3- Log in as ModulesPackage.Admin.ModulesPackage.Admin\n4- Exit");
 //                    Scanner choice2 = new Scanner(System.in);
 //                    switch (choice2.nextLine()) {
 //                        case "1":
-//                            user = User.User.login("Name" , "passw");
+//                            user = UserPackage.User.UserPackage.User.login("Name" , "passw");
 //                            if (user != null) {
 //                                actUser();
 //                            }
 //                            break;
 //                        case "2":
-//                            driver = Driver.Driver.login("Name" , "pass");
+//                            driver = ModulesPackage.Driver.ModulesPackage.Driver.login("Name" , "pass");
 //                            if (driver == null) {
 //                                break;
 //                            } else {//logged in

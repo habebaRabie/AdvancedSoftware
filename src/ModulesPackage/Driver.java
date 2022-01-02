@@ -1,21 +1,19 @@
+package ModulesPackage;
+
+import Controller.*;
+
+
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Scanner;
 
-
-
-enum DriverStatus {
-    ACTIVE, REJECTED, SUSPENDED, PENDING, WAITING, OFFLINE, INDRIVE
-}
 
 public class Driver extends Person {
 
     private String nationalId;
     private String drivingLicense;
     private DriverStatus status = DriverStatus.PENDING;
-//    private ArrayList<Ride> myRides = new ArrayList<>();
+//    private ArrayList<ModulesPackage.Ride> myRides = new ArrayList<>();
    private Rating myRate = new Rating();
-//    private DriverAreas myAreas = new DriverAreas();
+//    private Controller.DriverAreas myAreas = new Controller.DriverAreas();
 
 
     public void setNewArea(String myNewArea) {
@@ -40,7 +38,7 @@ public class Driver extends Person {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("Driver has been registered successfully");
+        System.out.println("ModulesPackage.Driver has been registered successfully");
     }
 
     public Driver login(String Name, String pass) {
@@ -56,7 +54,7 @@ public class Driver extends Person {
                 if (rs.next()) {
                     boolean found = rs.getBoolean(1); // "found" column
                     if (found) {
-//                        Driver d = new Driver();
+//                        ModulesPackage.Driver d = new ModulesPackage.Driver();
                         this.setUserName(rs.getString("username"));
                         this.setPassword(rs.getString("password"));
                         this.setPhoneNumber(rs.getString("phone"));
@@ -100,8 +98,8 @@ public class Driver extends Person {
         return price;
     }
 
-//    public Ride setRidePrice(double price){
-//        Ride ride=new Price(price);
+//    public ModulesPackage.Ride setRidePrice(double price){
+//        ModulesPackage.Ride ride=new Discount.Price(price);
 //        return ride;
 //    }
 
@@ -110,11 +108,11 @@ public class Driver extends Person {
 //        myRate.printRatings(this);
 //    }
 //
-//    public void setMyRate(User user) {
+//    public void setMyRate(UserPackage.User user) {
 //        myRate.setRating(user, this);
 //    }
 //
-//    public void setMyRides(Ride newRide) {
+//    public void setMyRides(ModulesPackage.Ride newRide) {
 //        myRides.add(newRide);
 //    }
 //

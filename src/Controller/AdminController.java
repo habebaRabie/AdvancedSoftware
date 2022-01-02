@@ -1,3 +1,8 @@
+package Controller;
+
+import ModulesPackage.*;
+import ModulesPackage.*;
+
 import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -105,7 +110,7 @@ public class AdminController {
 
     boolean login(String userName, String password) {
 
-        if (userName.equals("Admin") && password.equals("Admin")) {
+        if (userName.equals("ModulesPackage.Admin") && password.equals("ModulesPackage.Admin")) {
             admin.setUserName(userName);
             admin.setPassword(password);
             return true;

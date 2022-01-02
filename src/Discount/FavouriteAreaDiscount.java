@@ -1,14 +1,18 @@
+package Discount;
+
+import ModulesPackage.*;
+
 
 public class FavouriteAreaDiscount extends Discount {
     Ride ride;
 
-    FavouriteAreaDiscount(Ride ride){
+    public FavouriteAreaDiscount(Ride ride){
         this.ride = ride;
     }
 
     @Override
     public String getDescription() {
-        return ride.description + " , Favourite Area Discount";
+        return ride.getDescription() + " , Favourite Area Discount.Discount";
     }
 
     @Override

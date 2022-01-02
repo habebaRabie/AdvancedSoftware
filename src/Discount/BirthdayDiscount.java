@@ -1,13 +1,17 @@
+package Discount;
+
+import ModulesPackage.Ride;
+
 public class BirthdayDiscount extends Discount {
     Ride ride;
 
-    BirthdayDiscount(Ride ride){
+    public BirthdayDiscount(Ride ride){
         this.ride = ride;
     }
 
     @Override
     public String getDescription() {
-        return ride.description + " , Birthday Discount";
+        return ride.getDescription() + " , Birthday Discount.Discount";
     }
 
     @Override

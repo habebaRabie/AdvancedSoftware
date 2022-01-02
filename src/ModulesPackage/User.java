@@ -1,19 +1,11 @@
-import java.text.SimpleDateFormat;
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-
-enum UserStatus {
-    ACTIVE, SUSPENDED, INRIDE, WAITING, OFFLINE
-}
+package ModulesPackage;
 
 public class User extends Person {
 
     private UserStatus status;
     private int passangerNum;
     private boolean fistRide;
-    //userRequestRide rideRequest;
 
     public void setStatus(UserStatus status) {
         this.status = status;
@@ -23,11 +15,8 @@ public class User extends Person {
         return status;
     }
 
-//    public userRequestRide getRideRequest() {
-//        return rideRequest;
-//    }
-
     public User() {
+        super();
         this.status = UserStatus.ACTIVE;
     }
 }

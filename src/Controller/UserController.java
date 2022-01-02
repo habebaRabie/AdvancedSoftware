@@ -1,9 +1,16 @@
+package Controller;
+
+import ModulesPackage.*;
+import Controller.*;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserController{
+    String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
+
 
     public void register(String userName, String password, String email, String phoneNumber, String birthDate)throws Exception {
         Date date1= (Date) new SimpleDateFormat("dd/MM/yyyy").parse(birthDate);
@@ -13,7 +20,7 @@ public class UserController{
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
-        try (Connection conn = DriverManager.getConnection(Admin.url)) {
+        try (Connection conn = DriverManager.getConnection(url)) {
             PreparedStatement ins = conn.prepareStatement(sql);
             ins.setString(1, userName);
             ins.setString(2, password);
@@ -25,7 +32,7 @@ public class UserController{
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("User has been registered successfully");
+        System.out.println("UserPackage.User has been registered successfully");
 
     }
 
@@ -33,14 +40,13 @@ public class UserController{
     public User login(String Name , String pass) {
         User user = new User();
 
-        try (Connection conn = DriverManager.getConnection(Admin.url)){
+        try (Connection conn = DriverManager.getConnection(url)){
             String query = "select count(*) FROM user WHERE username = ? AND password = ?";
             PreparedStatement pst = conn.prepareStatement(query);
             pst.setString(1, Name);
             pst.setString(2, pass);
 
             try (ResultSet rs = pst.executeQuery()) {
-                // Only expecting a single result
                 if (rs.next()) {
                     boolean found = rs.getBoolean(1); // "found" column
                     if (found) {
