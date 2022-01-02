@@ -1,9 +1,32 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 //import java.sql.*;
 //import java.util.ArrayList;
 //import java.util.HashMap;
 //import java.util.Scanner;
 //
-//public class userRequestRide {
+public class DriverRide {
+
+
+    public ArrayList<String> driversACTIVE(){
+        ArrayList<String> drivers = new ArrayList<>();
+        String sql = "select username from driver where status = 'ACTIVE' ";
+        String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
+        try (Connection conn = DriverManager.getConnection(url)) {
+            ResultSet RS = conn.createStatement().executeQuery(sql);
+            while (RS.next()){
+                drivers.add(RS.getString("username"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return drivers;
+    }
+
 //
 //    Ride.Ride myRide;
 //    User.User user;
@@ -106,4 +129,4 @@
 //            myRide.setMystatus(Ride.rideStatus.ACCEPTED);
 //        }
 //    }
-//}
+}

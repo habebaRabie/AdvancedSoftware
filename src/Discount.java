@@ -1,3 +1,3 @@
 public abstract class Discount extends Ride {
-    public abstract String Description();
+    public abstract String getDescription();
 }

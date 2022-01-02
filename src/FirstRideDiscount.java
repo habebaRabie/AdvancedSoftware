@@ -6,7 +6,7 @@ public class FirstRideDiscount extends Discount {
     }
 
     @Override
-    public String Description() {
+    public String getDescription() {
         return ride.description + " , First Ride.Ride Discount";
     }
 

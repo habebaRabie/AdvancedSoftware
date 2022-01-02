@@ -13,7 +13,7 @@ public class PublicHolidayDiscount extends Discount {
     }
 
     @Override
-    public String Description() {
+    public String getDescription() {
         return ride.description + " , public Holiday Discount";
     }
 

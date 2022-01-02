@@ -1,6 +1,7 @@
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -165,7 +166,10 @@ public abstract class Ride {
             Date d = RS.getDate("date");
             String date = d.toString();
             event.event2(date, username);
-        } catch (SQLException e) {
+            event.event3(date , username,"CAPTAINARRIVED", driverName);
+            TimeUnit.MINUTES.sleep(5);
+            event.event3(date , username,"ARRIVIEDTODISTINATAION", driverName);
+        } catch (SQLException | InterruptedException e) {
             System.out.println(e.getMessage());
         }
 

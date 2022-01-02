@@ -7,7 +7,7 @@ public class PassengerNumberDiscount extends Discount {
     }
 
     @Override
-    public String Description() {
+    public String getDescription() {
         return ride.description + " , Passenger Number Discount";
     }
 

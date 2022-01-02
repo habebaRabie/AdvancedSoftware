@@ -6,7 +6,7 @@ public class BirthdayDiscount extends Discount {
     }
 
     @Override
-    public String Description() {
+    public String getDescription() {
         return ride.description + " , Birthday Discount";
     }
 
