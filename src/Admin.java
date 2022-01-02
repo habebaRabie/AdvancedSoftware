@@ -118,11 +118,11 @@ public class Admin extends Person {
         return "Activated Successfully";
     }
 
-    boolean login() {
-        System.out.println("Please enter your username and password");
-        Scanner input = new Scanner(System.in);
-        userName = input.nextLine();
-        password = input.nextLine();
+    boolean login(String userName, String password) {
+//        System.out.println("Please enter your username and password");
+//        Scanner input = new Scanner(System.in);
+//        userName = input.nextLine();
+//        password = input.nextLine();
 
         if (userName.equals("Admin") && password.equals("Admin")) {
             admin.setUserName(userName);
@@ -134,37 +134,53 @@ public class Admin extends Person {
         }
     }
 
-    public void verify() {
+    public ArrayList<String> verify() {
+        ArrayList<String> allPendingDrivers = new ArrayList<>();
         String sql = "Select username from driver where status = 'PENDING'";
         try (Connection con = DriverManager.getConnection(url)) {
             ResultSet rs1 = con.createStatement().executeQuery(sql);
 
             if (!rs1.next()){
                 System.out.println("there is no drivers need to be verified");
+                allPendingDrivers.add("there is no drivers need to be verified");
             }
             while (rs1.next()) {
                 String username = rs1.getString("username");
-                System.out.println("Do you want to verify " + username + "\n1- Yes\n2- No");
-                Scanner choice = new Scanner(System.in);
-                int answer = choice.nextInt();
-                if (answer == 1) {
-                    String sql2 = "update driver set status = 'ACTIVE' where username = ?";
-                    try {
-                        PreparedStatement ins = con.prepareStatement(sql2);
-                        ins.setString(1, username);
-                        ins.executeUpdate();
-                    } catch (SQLException e) {
-                        System.out.println(e.getMessage());
-                    }
-
-                } else if (answer == 2) {
-                } else {
-                    System.out.println("wrong choise");
-                }
+                allPendingDrivers.add(username);
+//                System.out.println("Do you want to verify " + username + "\n1- Yes\n2- No");
+//                Scanner choice = new Scanner(System.in);
+//                int answer = choice.nextInt();
+//                if (answer == 1) {
+//                    String sql2 = "update driver set status = 'ACTIVE' where username = ?";
+//                    try {
+//                        PreparedStatement ins = con.prepareStatement(sql2);
+//                        ins.setString(1, username);
+//                        ins.executeUpdate();
+//                    } catch (SQLException e) {
+//                        System.out.println(e.getMessage());
+//                    }
+//
+//                } else if (answer == 2) {
+//                } else {
+//                    System.out.println("wrong choise");
+//                }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        };
+        }
+        return allPendingDrivers;
+    }
+
+    public String verifySpecificUser(String name){
+        String sql = "update driver set status = 'ACTIVE' where username = ?";
+        try(Connection con = DriverManager.getConnection(url)) {
+            PreparedStatement ins = con.prepareStatement(sql);
+            ins.setString(1, name);
+            ins.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return "Activated Successfully";
     }
 
     public boolean suspendUser (String username){

@@ -9,53 +9,41 @@ enum DriverStatus {
 }
 
 public class Driver extends Person {
+
     private String nationalId;
     private String drivingLicense;
     private DriverStatus status = DriverStatus.PENDING;
-    private ArrayList<Ride> myRides = new ArrayList<>();
-    private Rating myRate = new Rating();
-    //private DriverAreas myAreas = new DriverAreas();
+//    private ArrayList<Ride> myRides = new ArrayList<>();
+   private Rating myRate = new Rating();
+//    private DriverAreas myAreas = new DriverAreas();
 
 
-    public void setMyAreas(String myNewArea) {
+    public void setNewArea(String myNewArea) {
        // myAreas.addFavAreas(myNewArea);
-        String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "\\SW.db";
-        String query = "insert into favoriteAreas (driver, area) values (?, ?)";
-        try ( Connection conn = DriverManager.getConnection(url)) {
-            PreparedStatement ins = conn.prepareStatement(query);
-            ins.setString(1, userName);
-            ins.setString(2, myNewArea);
-            ins.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        String query2 = "insert into Areas (location) values (?)";
-        try ( Connection conn = DriverManager.getConnection(url)) {
-            PreparedStatement ins = conn.prepareStatement(query2);
-            ins.setString(1, myNewArea);
-            ins.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 
-//TODO////////////////re_baiz////////////////////////////////////////////////////////////////////////
-    public void register() {
+    public void register(String userName, String password, String email, String phoneNumber, String nationalId, String drivingLicense) {
         String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "\\SW.db";
-        Scanner input = new Scanner(System.in);
-        System.out.println("Please enter your information: ");
-        System.out.println("Username: ");
-        userName = input.nextLine();
-        System.out.println("Password: ");
-        password = input.nextLine();
-        System.out.println("Email (optional): press enter to skip it if you want");
-        email = input.nextLine();
-        System.out.println("Phone Number: ");
-        phoneNumber = input.nextLine();
-        System.out.println("Nationa ID: ");
-        nationalId = input.nextLine();
-        System.out.println("Driving License: ");
-        drivingLicense = input.nextLine();
+//        Scanner input = new Scanner(System.in);
+//        System.out.println("Please enter your information: ");
+//        System.out.println("Username: ");
+//        this.userName = userName;
+//        this.password = password;
+//        this.email = email;
+//        this.phoneNumber = phoneNumber;
+//        this.nationalId = nationalId;
+//        this.drivingLicense = drivingLicense;
+//        System.out.println("Password: ");
+//        password = input.nextLine();
+//        System.out.println("Email (optional): press enter to skip it if you want");
+//        email = input.nextLine();
+//        System.out.println("Phone Number: ");
+//        phoneNumber = input.nextLine();
+//        System.out.println("Nationa ID: ");
+//        nationalId = input.nextLine();
+//        System.out.println("Driving License: ");
+//        drivingLicense = input.nextLine();
         status = DriverStatus.SUSPENDED;
 
         String sql = "insert into driver (username, password, email, phone, nationalId, drivingLicense, status) values (?, ?, ?, ?, ?, ?, ?)";
@@ -75,7 +63,7 @@ public class Driver extends Person {
         System.out.println("Driver has been registered successfully");
     }
 
-    static Driver login(String Name,String pass) {
+    public Driver login(String Name, String pass) {
         String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "\\SW.db";
         /*System.out.println("Please enter your username and password");
         Scanner input = new Scanner(System.in);
@@ -93,30 +81,29 @@ public class Driver extends Person {
                 if (rs.next()) {
                     boolean found = rs.getBoolean(1); // "found" column
                     if (found) {
-                        Driver d = new Driver();
-                        d.setUserName(rs.getString("username"));
-                        d.setPassword(rs.getString("password"));
-                        d.setPhoneNumber(rs.getString("phone"));
-                        d.setPEmail(rs.getString("email"));
-                        d.setPEmail(rs.getString("nationalId"));
-                        d.setPEmail(rs.getString("drivingLicense"));
-                        String status = rs.getString("status");
-                        DriverStatus s = DriverStatus.valueOf(status);
-                        d.setDriverStatus(s);
-                        String areasQuery = "select area from favoriteAreas where driver = " + d.getUserName();
-                        Statement stmt = conn.createStatement();
-                        ResultSet areas = stmt.executeQuery(areasQuery);
+//                        Driver d = new Driver();
+                        this.setUserName(rs.getString("username"));
+                        this.setPassword(rs.getString("password"));
+                        this.setPhoneNumber(rs.getString("phone"));
+                        this.setPEmail(rs.getString("email"));
+                        this.setNationalId(rs.getString("nationalId"));
+                        this.setDrivingLicense(rs.getString("drivingLicense"));
+                        this.setDriverStatus(DriverStatus.valueOf(rs.getString("status")));
+//                        DriverStatus s = DriverStatus.valueOf(status);
+//                        d.setDriverStatus(s);
+//                        String areasQuery = "select area from favoriteAreas where driver = " + this.getUserName();
+//                        Statement stmt = conn.createStatement();
+//                        ResultSet areas = stmt.executeQuery(areasQuery);
 //                        while (areas.next()) {
 //                            d.myAreas.addFavArea(areas.getString("area"));
 //                        }
-
-                        if (d.getStatus().equals(DriverStatus.PENDING) || d.getStatus().equals(DriverStatus.SUSPENDED)) {
+                        if (this.getStatus().equals(DriverStatus.PENDING) || this.getStatus().equals(DriverStatus.SUSPENDED)) {
                             System.out.println("Please wait until the verification of your account finish");
                             return null;
                         } else {
-                            System.out.println(d.getStatus());
+                            System.out.println(this.getStatus());
                             System.out.println("Logged in successfully");
-                            return d;
+                            return this;
                         }
 
                     } else {
@@ -129,6 +116,9 @@ public class Driver extends Person {
             e.printStackTrace();
         }
         return null;
+    }
+    public double getAvgRate() {
+        return myRate.calcAvgRate(this);
     }
 
     public Driver() {
@@ -143,40 +133,36 @@ public class Driver extends Person {
         return price;
     }
 
-    public void getMyRate() {
-        myRate.printRatings(this);
-    }
-
-    public void setMyRate(User user) {
-        myRate.setRating(user, this);
-    }
-    public double getAvgRate() {
-        return myRate.calcAvgRate(this);
-    }
-
-    public void setMyRides(Ride newRide) {
-        myRides.add(newRide);
-    }
-
+//    public void getMyRate() {
+//        myRate.printRatings(this);
+//    }
+//
+//    public void setMyRate(User user) {
+//        myRate.setRating(user, this);
+//    }
+//
+//    public void setMyRides(Ride newRide) {
+//        myRides.add(newRide);
+//    }
+//
 //    public ArrayList<String> getMyAreas() {
 //        return myAreas.getAllArea();
 //    }
-    //    public void setNationalId(String nationalId) {
-//        this.nationalId = nationalId;
-//    }
-//
-//    public void setDrivingLicense(String drivingLicense) {
-//        this.drivingLicense = drivingLicense;
-//    }
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
+    }
 
+    public void setDrivingLicense(String drivingLicense) {
+        this.drivingLicense = drivingLicense;
+    }
 
-    //    public String getNationalId() {
-//        return nationalId;
-//    }
-//
-//    public String getDrivingLicense() {
-//        return drivingLicense;
-//    }
+    public String getNationalId() {
+        return nationalId;
+    }
+
+    public String getDrivingLicense() {
+        return drivingLicense;
+    }
     /*  static Driver loginDriver() {
         ArrayList<Driver> allDrivers = Admin.getAllDrivers();
         //allDrivers.add(Admin.getAllDrivers());
