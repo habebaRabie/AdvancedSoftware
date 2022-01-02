@@ -5,25 +5,25 @@
 //
 //public class userRequestRide {
 //
-//    Ride myRide;
-//    User user;
-//    Driver rideDriver;
+//    Ride.Ride myRide;
+//    User.User user;
+//    Driver.Driver rideDriver;
 //
-//    public Ride getMyRide() {
+//    public Ride.Ride getMyRide() {
 //        return myRide;
 //    }
 //
-//    public User getUser() {
+//    public User.User getUser() {
 //        return user;
 //    }
 //
-//    public Driver getRideDriver() {
+//    public Driver.Driver getRideDriver() {
 //        return rideDriver;
 //    }
 //
-//    public void userRequest(User client) {
+//    public void userRequest(User.User client) {
 //        this.user = client;
-//        ArrayList<Driver> myDriver = new ArrayList();
+//        ArrayList<Driver.Driver> myDriver = new ArrayList();
 //        myRide = client.requestUserRide();
 //
 //        String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
@@ -42,17 +42,17 @@
 //        myDriver = searchAreas(myRide.getSource());
 //        if (myDriver.size() == 0) {
 //            System.out.println("There are no driver in this place");
-//            myRide.setMystatus(rideStatus.REJECTED);
+//            myRide.setMystatus(Ride.rideStatus.REJECTED);
 //            return;
 //        }
 //        // System.out.println(myDriver.get(0).userName);
 //        driverRequest(myDriver);
 //    }
 //
-//    public ArrayList<Driver> searchAreas(String source) { //on the user point of view
-//        ArrayList<Driver> myavailableDrivers = Admin.getAllDrivers();
-//        ArrayList<Driver> myDriver = new ArrayList();
-//        for (Driver driver : myavailableDrivers) {
+//    public ArrayList<Driver.Driver> searchAreas(String source) { //on the user point of view
+//        ArrayList<Driver.Driver> myavailableDrivers = Admin.Admin.getAllDrivers();
+//        ArrayList<Driver.Driver> myDriver = new ArrayList();
+//        for (Driver.Driver driver : myavailableDrivers) {
 //            for (String area : driver.getMyAreas()) {
 //                if (myRide.getSource().equals(area)) {
 //                    myDriver.add(driver);
@@ -64,9 +64,9 @@
 //        return myDriver;
 //    }
 //
-//    public void driverRequest(ArrayList<Driver> myDriver) {
-//        HashMap<Driver, Double> offers = new HashMap<Driver, Double>();
-//        for (Driver driver : myDriver) {
+//    public void driverRequest(ArrayList<Driver.Driver> myDriver) {
+//        HashMap<Driver.Driver, Double> offers = new HashMap<Driver.Driver, Double>();
+//        for (Driver.Driver driver : myDriver) {
 //            System.out.println("The ride is from " + myRide.getSource() + " to " + myRide.getDestnation());
 //            System.out.print("Please enter your offer to this ride: ");
 //            Scanner in = new Scanner(System.in);
@@ -75,7 +75,7 @@
 //            offers.put(driver, driverOffer);
 //        }//Map.Entry<String, Tab> entry : hash.entrySet()
 //        int i = 1;
-//        for (HashMap.Entry<Driver, Double> offr : offers.entrySet()) {
+//        for (HashMap.Entry<Driver.Driver, Double> offr : offers.entrySet()) {
 //            System.out.println(i + " - the driver name is : " + offr.getKey().userName + " the offer is : " + offr.getValue());
 //            i++;
 //        }
@@ -88,12 +88,12 @@
 //        Scanner input = new Scanner(System.in);
 //        int choice = input.nextInt();
 //        if (choice == i) { //cancelled
-//            myRide.setMystatus(rideStatus.REJECTED);
+//            myRide.setMystatus(Ride.rideStatus.REJECTED);
 //        } else {
-//            //Driver selectedOfferDriver = null;
+//            //Driver.Driver selectedOfferDriver = null;
 //
 //            int counter = 1;
-//            for (Driver driver : offers.keySet()) {
+//            for (Driver.Driver driver : offers.keySet()) {
 //                if (counter == choice) {
 //                    rideDriver = driver;
 //                    myRide.setPrice(offers.get(driver));
@@ -101,9 +101,9 @@
 //                }
 //                counter++;
 //            }
-//            rideDriver.setDriverStatus(DriverStatus.INDRIVE);
+//            rideDriver.setDriverStatus(Driver.DriverStatus.INDRIVE);
 //            rideDriver.setMyRides(myRide);
-//            myRide.setMystatus(rideStatus.ACCEPTED);
+//            myRide.setMystatus(Ride.rideStatus.ACCEPTED);
 //        }
 //    }
 //}

@@ -1,17 +1,16 @@
 import java.sql.*;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class Rating {
 
-//    HashMap<User, Integer > rating = new HashMap<>();
+//    HashMap<User.User, Integer > rating = new HashMap<>();
 
 //    public void getRating() {
 //        if (rating.size() == 0) {
 //            System.out.println("No user rated you yet");
 //            return;
 //        }
-//        for (HashMap.Entry<User, Integer> rate : rating.entrySet()) {
+//        for (HashMap.Entry<User.User, Integer> rate : rating.entrySet()) {
 //            System.out.println(rate.getKey().getUserName() + " rating is : " + rate.getValue());
 //        }
 //    }

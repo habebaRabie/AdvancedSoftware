@@ -1,7 +1,6 @@
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,12 +8,21 @@ enum rideStatus {
     ACCEPTED, REJECTED, PENDINGDRIVER, PENDINGUSER
 }
 
-public class Ride {
+public abstract class Ride {
 
-    private String source;
-    private String destnation;
-    private double price;
-    private rideStatus mystatus;
+    String description="New Ride.Ride";
+
+    public String getDescription(){
+        return description;
+    }
+    public abstract double cost();
+
+//    private String source;
+//    private String destnation;
+//    private double price;
+//    private Ride.rideStatus mystatus;
+
+
 
 
     public int requestUserRide(String source, String destination, int passengersNum , String username) {
@@ -37,10 +45,10 @@ public class Ride {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("User has been registered successfully");
+        System.out.println("User.User has been registered successfully");
         return 5;
 
-        //Ride ride = new Ride();
+        //Ride.Ride ride = new Ride.Ride();
         //return ride.requestRide();
     }
 
@@ -77,13 +85,14 @@ public class Ride {
         try (Connection conn = DriverManager.getConnection(url)) {
             ResultSet RS = conn.createStatement().executeQuery(sql);
             while (RS.next()){
-                if(firstRide ||userDate.equals(date)){//TODO////location
-                    price =  (RS.getDouble("price")*0.9);
-                }else if(passengersNumber==2){//TODO///////////holiday
+                //if(firstRide ||userDate.equals(date)){//TODO////location
+
+                    price =  RS.getDouble("price");//*0.9);
+               /* }else if(passengersNumber==2){//TODO///////////holiday
                     price =  (RS.getDouble("price")*0.95);
                 }else {
                     price = RS.getDouble("price");
-                }
+                }*/
                 req = RS.getString("driverName") + " "+ String.valueOf(price);
                 Result.add(req);
             }
@@ -94,7 +103,7 @@ public class Ride {
         return Result;
     }
 
-    //TODO//////////////////////////////////
+    //TODO/////////////////////////done(tony)//////////
     public void SelectRidePrice(String driverName , int RideID){
         String req;
         double pri =0;
@@ -106,21 +115,23 @@ public class Ride {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        String sql2 = "UPDATE ride SET price ='?' , driver ='?' where rideID = " +RideID ;
+        String sql2 = "UPDATE ride SET price ='?' , driver ='?' where rideID = ?" ;
         try(Connection conn = DriverManager.getConnection(url)) {
             PreparedStatement ins = conn.prepareStatement(sql2);
-            ins.setString(1, username);
+            ins.setDouble(1, pri);
+            ins.setString(2, driverName);
+            ins.setInt(3, RideID);
             ins.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-  /*  public rideStatus getMystatus() {
+  /*  public Ride.rideStatus getMystatus() {
         return mystatus;
     }
 
-    public void setMystatus(rideStatus mystatus) {
+    public void setMystatus(Ride.rideStatus mystatus) {
         this.mystatus = mystatus;
     }
 
@@ -148,28 +159,28 @@ public class Ride {
         this.price = price;
     }
 
-    public Ride(String source, String destnation) {
+    public Ride.Ride(String source, String destnation) {
         this.source = source;
         this.destnation = destnation;
     }
 
-    public Ride requestRide() {
+    public Ride.Ride requestRide() {
         System.out.println("please enter your location");
         Scanner in = new Scanner(System.in);
         String src = in.next();
         System.out.println("please enter the location of destination");
         //Scanner in = new Scanner(System.in);
         String des = in.next();
-        Ride myRide = new Ride(src, des);
+        Ride.Ride myRide = new Ride.Ride(src, des);
         return myRide;
     }
 
-    public Ride() {
+    public Ride.Ride() {
     }
 
     @Override
     public String toString() {
-        return "Ride{"
+        return "Ride.Ride{"
                 + "source='" + source + '\''
                 + ", destnation='" + destnation + '\''
                 + ", price=" + price

@@ -1,6 +1,4 @@
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class Admin extends Person {
@@ -207,7 +205,7 @@ public class Admin extends Person {
     }
 
    /* public Boolean searchUser(String userName) {
-        for (User user : users) {
+        for (User.User user : users) {
             if (user.userName.equals(userName)) {
                 suspend(user);
                 return true;
@@ -217,7 +215,7 @@ public class Admin extends Person {
     }
 
     public Boolean searchDriverExistance(String userName) {
-        for (Driver driver : drivers) {
+        for (Driver.Driver driver : drivers) {
             if (driver.userName.equals(userName)) {
                 suspend(driver);
                 return true;
@@ -226,31 +224,31 @@ public class Admin extends Person {
         return false;
     }*/
 
-    /*public static ArrayList<Driver> getAllDrivers() {
+    /*public static ArrayList<Driver.Driver> getAllDrivers() {
         return drivers;
     }
 
-    public static ArrayList<User> getAllUsers() {
+    public static ArrayList<User.User> getAllUsers() {
         return users;
     }
 
-    public static void addActiveUser(User user) {
+    public static void addActiveUser(User.User user) {
         users.add(user);
     }
 
-    public static void addDriverToSystem(Driver driver) {
+    public static void addDriverToSystem(Driver.Driver driver) {
         ALLdrivers.add(driver);
     }
 
-    public static void removeDriverToSystem(Driver driver) {
+    public static void removeDriverToSystem(Driver.Driver driver) {
         ALLdrivers.remove(driver);
     }
 
-    public static void removeUser(User user) {
+    public static void removeUser(User.User user) {
         users.remove(user);
     }
 
-    public static void addActiveDriver(Driver driver) {
+    public static void addActiveDriver(Driver.Driver driver) {
         if (searchDriver(driver)) {
             drivers.add(driver);
         } else {
@@ -258,41 +256,41 @@ public class Admin extends Person {
         }
     }
 
-    public static void removeDriver(Driver driver) {
+    public static void removeDriver(Driver.Driver driver) {
         drivers.remove(driver);
     }
 
-    public static Boolean searchDriver(Driver driver) {
+    public static Boolean searchDriver(Driver.Driver driver) {
         if (ALLdrivers.contains(driver) ||suspendDrivers.contains(driver)) {
             return true;
         } else {
             return false;
         }
     }*/
-// static private ArrayList<Driver> ALLdrivers = new ArrayList<Driver>();
+// static private ArrayList<Driver.Driver> ALLdrivers = new ArrayList<Driver.Driver>();
 
-    //  static private ArrayList<User> users = new ArrayList<User>();//after login users.add(active logged user)
-    //static private ArrayList<Driver> drivers = new ArrayList<Driver>();
+    //  static private ArrayList<User.User> users = new ArrayList<User.User>();//after login users.add(active logged user)
+    //static private ArrayList<Driver.Driver> drivers = new ArrayList<Driver.Driver>();
 
-    //static private ArrayList<User> suspendUsers = new ArrayList<User>();
-    //static private ArrayList<Driver> suspendDrivers = new ArrayList<Driver>();
+    //static private ArrayList<User.User> suspendUsers = new ArrayList<User.User>();
+    //static private ArrayList<Driver.Driver> suspendDrivers = new ArrayList<Driver.Driver>();
 
     /* static public void suspend(Person person) {
          System.out.println("Please enter the userName");
 
-         if (person instanceof User) {
-             suspendUsers.add((User) person);
-             removeUser((User) person);
-             for (User u : users) {
+         if (person instanceof User.User) {
+             suspendUsers.add((User.User) person);
+             removeUser((User.User) person);
+             for (User.User u : users) {
                  if (person == u) {
                      u.setStatus(UserStatus.SUSPENDED);
 
                  }
              }
          } else {
-             suspendDrivers.add((Driver) person);
-             removeDriver((Driver) person);
-             for (Driver d : drivers) {
+             suspendDrivers.add((Driver.Driver) person);
+             removeDriver((Driver.Driver) person);
+             for (Driver.Driver d : drivers) {
                  if (person == d) {
                      d.setDriverStatus(DriverStatus.SUSPENDED);
 

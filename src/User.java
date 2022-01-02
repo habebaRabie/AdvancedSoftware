@@ -1,11 +1,8 @@
-
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 enum UserStatus {
     ACTIVE, SUSPENDED, INRIDE, WAITING, OFFLINE
@@ -34,7 +31,7 @@ public class User extends Person {
         this.status = UserStatus.ACTIVE;
     }
 
-//    public User(int userID, String userName, String password, String email, String phoneNumber) {
+//    public User.User(int userID, String userName, String password, String email, String phoneNumber) {
 //        super(userName, password, email, phoneNumber);
 //    }
 
@@ -70,7 +67,7 @@ public class User extends Person {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("User has been registered successfully");
+        System.out.println("User.User has been registered successfully");
 
     }
 
@@ -131,19 +128,19 @@ public class User extends Person {
 //        this.rideRequest = rideRequest;
 //    }
 
-//    static User loginUser() {
-//        ArrayList<User> allUsers = Admin.getAllUsers();
+//    static User.User loginUser() {
+//        ArrayList<User.User> allUsers = Admin.Admin.getAllUsers();
 //        Boolean found = false;
 //        System.out.println("Please enter your username and password");
 //        Scanner input = new Scanner(System.in);
 //        String Name = input.nextLine();
 //        String pass = input.nextLine();
-//        for (User user : allUsers) {
+//        for (User.User user : allUsers) {
 //            if (user.getUserName().equals(Name)) {
 //                found = true;
 //                if (user.getPassword().equals(pass)) {
 //                    System.out.println("Logged in successfully");
-//                    user.setStatus(UserStatus.ACTIVE);
+//                    user.setStatus(User.UserStatus.ACTIVE);
 //                    return user;
 //                } else {
 //                    System.out.println("Wrong password");
