@@ -1,4 +1,3 @@
-
 package ModulesPackage;
 
 public class User extends Person {
