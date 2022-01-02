@@ -14,7 +14,7 @@ public class Driver extends Person {
     private DriverStatus status = DriverStatus.PENDING;
     private ArrayList<Ride> myRides = new ArrayList<>();
     private Rating myRate = new Rating();
-    //private Driver.DriverAreas myAreas = new Driver.DriverAreas();
+    //private DriverAreas myAreas = new DriverAreas();
 
 
     public void setMyAreas(String myNewArea) {
@@ -72,7 +72,7 @@ public class Driver extends Person {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("Driver.Driver has been registered successfully");
+        System.out.println("Driver has been registered successfully");
     }
 
     static Driver login(String Name,String pass) {
@@ -177,18 +177,18 @@ public class Driver extends Person {
 //    public String getDrivingLicense() {
 //        return drivingLicense;
 //    }
-    /*  static Driver.Driver loginDriver() {
-        ArrayList<Driver.Driver> allDrivers = Admin.Admin.getAllDrivers();
-        //allDrivers.add(Admin.Admin.getAllDrivers());
+    /*  static Driver loginDriver() {
+        ArrayList<Driver> allDrivers = Admin.getAllDrivers();
+        //allDrivers.add(Admin.getAllDrivers());
         System.out.println("Please enter your username and password");
         Scanner input = new Scanner(System.in);
         String name = input.nextLine();
         String pass = input.nextLine();
-        for (Driver.Driver driver : allDrivers) {
+        for (Driver driver : allDrivers) {
             if (driver.getUserName().equals(name)) {
-                if (driver.getPassword().equals(pass) && (driver.status.equals(Driver.DriverStatus.ACTIVE)
-                        || driver.status.equals(Driver.DriverStatus.INDRIVE)
-                        || driver.status.equals(Driver.DriverStatus.WAITING))) {
+                if (driver.getPassword().equals(pass) && (driver.status.equals(DriverStatus.ACTIVE)
+                        || driver.status.equals(DriverStatus.INDRIVE)
+                        || driver.status.equals(DriverStatus.WAITING))) {
                     System.out.println("Logged in successfully");
                     return driver;
                 } else {
@@ -202,7 +202,7 @@ public class Driver extends Person {
     }*/
 
 
-    /* Driver.Driver(String userName, String password,
+    /* Driver(String userName, String password,
             String email, String phoneNumber,
             String nationalId, String drivingLicense, int driverID) {
 
@@ -210,7 +210,7 @@ public class Driver extends Person {
         this.nationalId = nationalId;
         this.drivingLicense = drivingLicense;
     }*/
-//    public ArrayList<Ride.Ride> getMyRides() {
+//    public ArrayList<Ride> getMyRides() {
 //        return myRides;
 //    }
 

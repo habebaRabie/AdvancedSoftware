@@ -1,5 +1,3 @@
-import Ride.Ride;
-
 public abstract class Price extends Ride {
     double price = 0.0;
 

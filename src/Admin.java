@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Admin extends Person {
@@ -18,70 +19,103 @@ public class Admin extends Person {
         }
     }
 
-    public void verifySuspendDriver() {
+    public ArrayList<String> verifySuspendDriver() {
+        ArrayList<String> allSuspendDrivers = new ArrayList<>();
         String sql = "Select username from driver where status = 'SUSPENDED'";
         try (Connection con = DriverManager.getConnection(url)) {
             ResultSet rs1 = con.createStatement().executeQuery(sql);
 
             if (!rs1.isBeforeFirst()){
                 System.out.println("there is no drivers need to be verified");
+                allSuspendDrivers.add("there is no drivers need to be verified");
             }
             while (rs1.next()) {
                 String username = rs1.getString("username");
-                System.out.println("Do you want to active " + username + "\n1- Yes\n2- No");
-                Scanner choice = new Scanner(System.in);
-                int answer = choice.nextInt();
-                if (answer == 1) {
-                    String sql2 = "update driver set status = 'ACTIVE' where username = ?";
-                    try {
-                        PreparedStatement ins = con.prepareStatement(sql2);
-                        ins.setString(1, username);
-                        ins.executeUpdate();
-                    } catch (SQLException e) {
-                        System.out.println(e.getMessage());
-                    }
-
-                } else if (answer == 2) {
-                } else {
-                    System.out.println("wrong choice");
-                }
+                allSuspendDrivers.add(username);
+//                System.out.println("Do you want to active " + username + "\n1- Yes\n2- No");
+//                Scanner choice = new Scanner(System.in);
+//                int answer = choice.nextInt();
+//                if (answer == 1) {
+//                    String sql2 = "update driver set status = 'ACTIVE' where username = ?";
+//                    try {
+//                        PreparedStatement ins = con.prepareStatement(sql2);
+//                        ins.setString(1, username);
+//                        ins.executeUpdate();
+//                    } catch (SQLException e) {
+//                        System.out.println(e.getMessage());
+//                    }
+//
+//                } else if (answer == 2) {
+//
+//                } else {
+//                    System.out.println("wrong choice");
+//                }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return allSuspendDrivers;
     }
 
-    public void verifySuspendUser() {
+    public String suspendSpecificDriver(String name){
+        String sql = "update driver set status = 'ACTIVE' where username = ?";
+        try(Connection con = DriverManager.getConnection(url)) {
+            PreparedStatement ins = con.prepareStatement(sql);
+            ins.setString(1, name);
+            ins.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return "Activated Successfully";
+    }
+
+    public ArrayList<String> verifySuspendUser() {
+        ArrayList<String> allSuspendUsers = new ArrayList<>();
         String sql = "Select username from user where status = 'SUSPENDED'";
         try (Connection con = DriverManager.getConnection(url)) {
             ResultSet rs1 = con.createStatement().executeQuery(sql);
 
             if (!rs1.isBeforeFirst()){
                 System.out.println("there is no users need to be verified");
+                allSuspendUsers.add("there is no users need to be verified");
             }
             while (rs1.next()) {
                 String username = rs1.getString("username");
-                System.out.println("Do you want to active " + username + "\n1- Yes\n2- No");
-                Scanner choice = new Scanner(System.in);
-                int answer = choice.nextInt();
-                if (answer == 1) {
-                    String sql2 = "update user set status = 'ACTIVE' where username = ?";
-                    try {
-                        PreparedStatement ins = con.prepareStatement(sql2);
-                        ins.setString(1, username);
-                        ins.executeUpdate();
-                    } catch (SQLException e) {
-                        System.out.println(e.getMessage());
-                    }
-
-                } else if (answer == 2) {
-                } else {
-                    System.out.println("wrong choice");
-                }
+                allSuspendUsers.add(username);
+//                System.out.println("Do you want to active " + username + "\n1- Yes\n2- No");
+//                Scanner choice = new Scanner(System.in);
+//                int answer = choice.nextInt();
+//                if (answer == 1) {
+//                    String sql2 = "update user set status = 'ACTIVE' where username = ?";
+//                    try {
+//                        PreparedStatement ins = con.prepareStatement(sql2);
+//                        ins.setString(1, username);
+//                        ins.executeUpdate();
+//                    } catch (SQLException e) {
+//                        System.out.println(e.getMessage());
+//                    }
+//
+//                } else if (answer == 2) {
+//                } else {
+//                    System.out.println("wrong choice");
+//                }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        };
+        }
+        return allSuspendUsers;
+    }
+
+    public String suspendSpecificUser(String name){
+        String sql = "update driver set status = 'ACTIVE' where username = ?";
+        try(Connection con = DriverManager.getConnection(url)) {
+            PreparedStatement ins = con.prepareStatement(sql);
+            ins.setString(1, name);
+            ins.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return "Activated Successfully";
     }
 
     boolean login() {
@@ -205,7 +239,7 @@ public class Admin extends Person {
     }
 
    /* public Boolean searchUser(String userName) {
-        for (User.User user : users) {
+        for (User user : users) {
             if (user.userName.equals(userName)) {
                 suspend(user);
                 return true;
@@ -215,7 +249,7 @@ public class Admin extends Person {
     }
 
     public Boolean searchDriverExistance(String userName) {
-        for (Driver.Driver driver : drivers) {
+        for (Driver driver : drivers) {
             if (driver.userName.equals(userName)) {
                 suspend(driver);
                 return true;
@@ -224,7 +258,7 @@ public class Admin extends Person {
         return false;
     }*/
 
-    /*public static ArrayList<Driver.Driver> getAllDrivers() {
+    /*public static ArrayList<Driver> getAllDrivers() {
         return drivers;
     }
 
@@ -232,23 +266,23 @@ public class Admin extends Person {
         return users;
     }
 
-    public static void addActiveUser(User.User user) {
+    public static void addActiveUser(User user) {
         users.add(user);
     }
 
-    public static void addDriverToSystem(Driver.Driver driver) {
+    public static void addDriverToSystem(Driver driver) {
         ALLdrivers.add(driver);
     }
 
-    public static void removeDriverToSystem(Driver.Driver driver) {
+    public static void removeDriverToSystem(Driver driver) {
         ALLdrivers.remove(driver);
     }
 
-    public static void removeUser(User.User user) {
+    public static void removeUser(User user) {
         users.remove(user);
     }
 
-    public static void addActiveDriver(Driver.Driver driver) {
+    public static void addActiveDriver(Driver driver) {
         if (searchDriver(driver)) {
             drivers.add(driver);
         } else {
@@ -256,31 +290,31 @@ public class Admin extends Person {
         }
     }
 
-    public static void removeDriver(Driver.Driver driver) {
+    public static void removeDriver(Driver driver) {
         drivers.remove(driver);
     }
 
-    public static Boolean searchDriver(Driver.Driver driver) {
+    public static Boolean searchDriver(Driver driver) {
         if (ALLdrivers.contains(driver) ||suspendDrivers.contains(driver)) {
             return true;
         } else {
             return false;
         }
     }*/
-// static private ArrayList<Driver.Driver> ALLdrivers = new ArrayList<Driver.Driver>();
+// static private ArrayList<Driver> ALLdrivers = new ArrayList<Driver>();
 
-    //  static private ArrayList<User.User> users = new ArrayList<User.User>();//after login users.add(active logged user)
-    //static private ArrayList<Driver.Driver> drivers = new ArrayList<Driver.Driver>();
+    //  static private ArrayList<User> users = new ArrayList<User>();//after login users.add(active logged user)
+    //static private ArrayList<Driver> drivers = new ArrayList<Driver>();
 
-    //static private ArrayList<User.User> suspendUsers = new ArrayList<User.User>();
-    //static private ArrayList<Driver.Driver> suspendDrivers = new ArrayList<Driver.Driver>();
+    //static private ArrayList<User> suspendUsers = new ArrayList<User.User>();
+    //static private ArrayList<Driver> suspendDrivers = new ArrayList<Driver>();
 
     /* static public void suspend(Person person) {
          System.out.println("Please enter the userName");
 
-         if (person instanceof User.User) {
-             suspendUsers.add((User.User) person);
-             removeUser((User.User) person);
+         if (person instanceof User) {
+             suspendUsers.add((User) person);
+             removeUser((User) person);
              for (User.User u : users) {
                  if (person == u) {
                      u.setStatus(UserStatus.SUSPENDED);
@@ -288,9 +322,9 @@ public class Admin extends Person {
                  }
              }
          } else {
-             suspendDrivers.add((Driver.Driver) person);
-             removeDriver((Driver.Driver) person);
-             for (Driver.Driver d : drivers) {
+             suspendDrivers.add((Driver) person);
+             removeDriver((Driver) person);
+             for (Driver d : drivers) {
                  if (person == d) {
                      d.setDriverStatus(DriverStatus.SUSPENDED);
 

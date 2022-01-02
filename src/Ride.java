@@ -45,10 +45,10 @@ public abstract class Ride {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("User.User has been registered successfully");
+        System.out.println("User has been registered successfully");
         return 5;
 
-        //Ride.Ride ride = new Ride.Ride();
+        //Ride ride = new Ride();
         //return ride.requestRide();
     }
 
@@ -127,11 +127,11 @@ public abstract class Ride {
         }
     }
 
-  /*  public Ride.rideStatus getMystatus() {
+  /*  public rideStatus getMystatus() {
         return mystatus;
     }
 
-    public void setMystatus(Ride.rideStatus mystatus) {
+    public void setMystatus(rideStatus mystatus) {
         this.mystatus = mystatus;
     }
 
