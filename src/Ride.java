@@ -10,7 +10,7 @@ enum rideStatus {
 
 public abstract class Ride {
 
-    String description="New Ride.Ride";
+    String description="New Ride";
 
     public String getDescription(){
         return description;
@@ -20,7 +20,7 @@ public abstract class Ride {
 //    private String source;
 //    private String destnation;
 //    private double price;
-//    private Ride.rideStatus mystatus;
+//    private rideStatus mystatus;
 
 
 
@@ -28,6 +28,7 @@ public abstract class Ride {
     public int requestUserRide(String source, String destination, int passengersNum , String username) {
         String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
         String sql = "insert into ride (source, destination, passengersNumber,user) values (?, ?, ?, ?, ?, ?)";
+        int RideId = 0;
         try {
             Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException ex) {
@@ -41,12 +42,13 @@ public abstract class Ride {
             ins.setString(4, username);
             ins.setString(5, "WAITING");
             ins.setDate(6, Date.valueOf(LocalDate.now()));
+            RideId = ins.getMaxRows();
             ins.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("User has been registered successfully");
-        return 5;
+        System.out.println("");
+        return RideId;
 
         //Ride ride = new Ride();
         //return ride.requestRide();
@@ -54,18 +56,18 @@ public abstract class Ride {
 
     public ArrayList<String> RidePrice(int RideId){
         ArrayList<String> Result = new ArrayList<>();
-        String req , user =  "";
+        String req , user =  "", destination ="";
         double price = 0, passengersNumber=0;
         Date date = null, userDate = null;
         boolean firstRide = true;
         String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
-        String sql2 = "select passengersNumber , date , user from ride where RideID = " + RideId;
+        String sql2 = "select passengersNumber , date , user, destination from ride where RideID = " + RideId;
         try (Connection conn = DriverManager.getConnection(url)) {
             ResultSet RS = conn.createStatement().executeQuery(sql2);
             passengersNumber = RS.getInt("passengersNumber");
-            user = RS.getString("user") ;
             date = RS.getDate("date");
-
+            user = RS.getString("user");
+            destination = RS.getString("destination");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -74,9 +76,26 @@ public abstract class Ride {
         try (Connection conn = DriverManager.getConnection(url)) {
             ResultSet RS = conn.createStatement().executeQuery(sql3);
             passengersNumber = RS.getInt("passengersNumber");
-            firstRide = RS.getBoolean("firstRide") ;
+            firstRide = RS.getBoolean("firstRide");
             userDate = RS.getDate("birthDate");
 
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        Boolean desHasDiscount = false;
+        String sql4 = "select discount from Area where location = " + destination;
+        try (Connection conn = DriverManager.getConnection(url)) {
+            ResultSet RS = conn.createStatement().executeQuery(sql4);
+            desHasDiscount = RS.getBoolean("discount");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        String sql5 = "select count(*) from Holiday where date = " + date;
+        Boolean exist = false;
+        try (Connection conn = DriverManager.getConnection(url)) {
+            ResultSet RS = conn.createStatement().executeQuery(sql5);
+            exist = RS.getBoolean(1);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -85,15 +104,24 @@ public abstract class Ride {
         try (Connection conn = DriverManager.getConnection(url)) {
             ResultSet RS = conn.createStatement().executeQuery(sql);
             while (RS.next()){
-                //if(firstRide ||userDate.equals(date)){//TODO////location
-
-                    price =  RS.getDouble("price");//*0.9);
-               /* }else if(passengersNumber==2){//TODO///////////holiday
-                    price =  (RS.getDouble("price")*0.95);
-                }else {
-                    price = RS.getDouble("price");
-                }*/
-                req = RS.getString("driverName") + " "+ String.valueOf(price);
+                price =  RS.getDouble("price");
+                Ride ride = new Price(price);
+                if(firstRide){
+                    ride = new FirstRideDiscount(ride);
+                }
+                if(passengersNumber==2){
+                    ride = new PassengerNumberDiscount(ride);
+                }
+                if(userDate.equals(date)){
+                    ride = new BirthdayDiscount(ride);
+                }
+                if(desHasDiscount){
+                    ride = new FavouriteAreaDiscount(ride);
+                }
+                if(exist){
+                    ride = new PublicHolidayDiscount(ride);
+                }
+                req = RS.getString("driverName") + " "+ String.valueOf(ride.cost());
                 Result.add(req);
             }
 
@@ -103,7 +131,7 @@ public abstract class Ride {
         return Result;
     }
 
-    //TODO/////////////////////////done(tony)//////////
+
     public void SelectRidePrice(String driverName , int RideID){
         String req;
         double pri =0;

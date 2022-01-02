@@ -1,19 +1,17 @@
-
-
 public class FirstRideDiscount extends Discount {
-    Discount discount;
+    Ride ride;
 
-    FirstRideDiscount(Discount discount){
-        this.discount = discount;
+    FirstRideDiscount(Ride ride){
+        this.ride = ride;
     }
 
     @Override
     public String Description() {
-        return discount.description + " , First Ride.Ride Discount";
+        return ride.description + " , First Ride.Ride Discount";
     }
 
     @Override
     public double cost() {
-        return 0.9* (discount.cost());
+        return 0.9* (ride.cost());
     }
 }

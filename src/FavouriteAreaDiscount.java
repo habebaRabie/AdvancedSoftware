@@ -1,18 +1,18 @@
 
 public class FavouriteAreaDiscount extends Discount {
-    Discount discount;
+    Ride ride;
 
-    FavouriteAreaDiscount(Discount discount){
-        this.discount = discount;
+    FavouriteAreaDiscount(Ride ride){
+        this.ride = ride;
     }
 
     @Override
     public String Description() {
-        return discount.description + " , Favourite Area Discount";
+        return ride.description + " , Favourite Area Discount";
     }
 
     @Override
     public double cost() {
-        return 0.9* (discount.cost());
+        return 0.9* (ride.cost());
     }
 }

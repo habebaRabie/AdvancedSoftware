@@ -132,6 +132,9 @@ public class Driver extends Person {
     public Double rideOffer(double price) {
         return price;
     }
+    public void setRidePrice(){
+
+    }
 
 //    public void getMyRate() {
 //        myRate.printRatings(this);

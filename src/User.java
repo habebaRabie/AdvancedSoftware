@@ -30,25 +30,9 @@ public class User extends Person {
     public User() {
         this.status = UserStatus.ACTIVE;
     }
-
-//    public User.User(int userID, String userName, String password, String email, String phoneNumber) {
-//        super(userName, password, email, phoneNumber);
-//    }
-
     public void register(String userName, String password, String email, String phoneNumber, String birthDate)throws Exception {
         Date date1= (Date) new SimpleDateFormat("dd/MM/yyyy").parse(birthDate);
         String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
-//        Scanner input = new Scanner(System.in);
-//        System.out.println("Please enter your information: ");
-//        System.out.println("Username: ");
-//        userName = input.nextLine();
-//        System.out.println("Password: ");
-//        password = input.nextLine();
-//        System.out.println("Email (optional): press enter to skip it if you want");
-//        email = input.nextLine();
-//        System.out.println("Phone Number: ");
-//        phoneNumber = input.nextLine();
-        
         String sql = "insert into user (username, password, email, phone, status, birthDate) values (?, ?, ?, ?, ?, ?)";
         try {
             Class.forName("org.sqlite.JDBC");
@@ -67,17 +51,13 @@ public class User extends Person {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("User.User has been registered successfully");
+        System.out.println("User has been registered successfully");
 
     }
 
 
-    static User login(String Name , String pass) {
+    public User login(String Name , String pass) {
         String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
-        /*System.out.println("Please enter your username and password");
-        Scanner input = new Scanner(System.in);
-        String Name = input.nextLine().trim();
-        String pass = input.nextLine().trim();*/
 
         try (Connection conn = DriverManager.getConnection(url)){
             String query = "select count(*) FROM user WHERE username = ? AND password = ?";
@@ -90,23 +70,20 @@ public class User extends Person {
                 if (rs.next()) {
                     boolean found = rs.getBoolean(1); // "found" column
                     if (found) {
-                        User u = new User ();
                         while (rs.next()){
-                            u.setUserName(rs.getString("username"));
-                            u.setPassword(rs.getString("password"));
-                            u.setPhoneNumber(rs.getString("phone"));
-                            u.setPEmail(rs.getString("email"));
-                            String status = rs.getString("status");
-                            UserStatus s = UserStatus.valueOf(status);
-                            u.setStatus(s);
+                            this.setUserName(rs.getString("username"));
+                            this.setPassword(rs.getString("password"));
+                            this.setPhoneNumber(rs.getString("phone"));
+                            this.setPEmail(rs.getString("email"));
+                            this.setStatus(UserStatus.valueOf(rs.getString("status")));
                         }
-                        if (u.getStatus().equals(UserStatus.SUSPENDED)){
+                        if (this.getStatus().equals(UserStatus.SUSPENDED)){
                             System.out.println("Please wait until the verification of your account finish");
                             return null;
                         }
                         else{
                         System.out.println("Logged in successfully");
-                        return u;
+                        return this;
                         }
                     } else {
                         System.out.println("Wrong username or password");
@@ -120,43 +97,13 @@ public class User extends Person {
         return  null;
     }
 //TODO//////////////////////////////////
-    public void rateDriver(Driver driver) {
-        driver.setMyRate(this);
-    }
+
+//    public void rateDriver(Driver driver) {
+//        driver.setMyRate(this);
+//    }
 
 //    public void setRideRequest(userRequestRide rideRequest) {
 //        this.rideRequest = rideRequest;
-//    }
-
-//    static User.User loginUser() {
-//        ArrayList<User.User> allUsers = Admin.Admin.getAllUsers();
-//        Boolean found = false;
-//        System.out.println("Please enter your username and password");
-//        Scanner input = new Scanner(System.in);
-//        String Name = input.nextLine();
-//        String pass = input.nextLine();
-//        for (User.User user : allUsers) {
-//            if (user.getUserName().equals(Name)) {
-//                found = true;
-//                if (user.getPassword().equals(pass)) {
-//                    System.out.println("Logged in successfully");
-//                    user.setStatus(User.UserStatus.ACTIVE);
-//                    return user;
-//                } else {
-//                    System.out.println("Wrong password");
-//                    return null;
-//                }
-//            }
-//
-//        }
-//        if (found){
-//            System.out.println("Wrong password or user name");
-//        }
-//        else {
-//            System.out.println("There is no user with this name or your account is suspended");
-//        }
-//
-//        return null;
 //    }
 
 }

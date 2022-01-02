@@ -1,18 +1,18 @@
 
 public class PassengerNumberDiscount extends Discount {
-    Discount discount;
+    Ride ride;
 
-    PassengerNumberDiscount(Discount discount){
-        this.discount = discount;
+    PassengerNumberDiscount(Ride ride){
+        this.ride = ride;
     }
 
     @Override
     public String Description() {
-        return discount.description + " , Passenger Number Discount";
+        return ride.description + " , Passenger Number Discount";
     }
 
     @Override
     public double cost() {
-        return 0.95* (discount.cost());
+        return 0.95* (ride.cost());
     }
 }

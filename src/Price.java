@@ -1,14 +1,16 @@
-public abstract class Price extends Ride {
+public class Price extends Ride {
     double price = 0.0;
 
-    public Price(){
+    public Price(double price){
         description = "No Discounts";
-    }
-    public void setPrice(double price){
         this.price = price;
     }
-    public double cost(double price){
+//    public void setPrice(double price){
+//        this.price = price;
+//    }
+
+    @Override
+    public double cost() {
         return price;
     }
-
 }

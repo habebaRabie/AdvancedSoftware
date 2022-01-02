@@ -1,6 +1,10 @@
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Admin extends Person {
 
@@ -32,24 +36,6 @@ public class Admin extends Person {
             while (rs1.next()) {
                 String username = rs1.getString("username");
                 allSuspendDrivers.add(username);
-//                System.out.println("Do you want to active " + username + "\n1- Yes\n2- No");
-//                Scanner choice = new Scanner(System.in);
-//                int answer = choice.nextInt();
-//                if (answer == 1) {
-//                    String sql2 = "update driver set status = 'ACTIVE' where username = ?";
-//                    try {
-//                        PreparedStatement ins = con.prepareStatement(sql2);
-//                        ins.setString(1, username);
-//                        ins.executeUpdate();
-//                    } catch (SQLException e) {
-//                        System.out.println(e.getMessage());
-//                    }
-//
-//                } else if (answer == 2) {
-//
-//                } else {
-//                    System.out.println("wrong choice");
-//                }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -82,23 +68,6 @@ public class Admin extends Person {
             while (rs1.next()) {
                 String username = rs1.getString("username");
                 allSuspendUsers.add(username);
-//                System.out.println("Do you want to active " + username + "\n1- Yes\n2- No");
-//                Scanner choice = new Scanner(System.in);
-//                int answer = choice.nextInt();
-//                if (answer == 1) {
-//                    String sql2 = "update user set status = 'ACTIVE' where username = ?";
-//                    try {
-//                        PreparedStatement ins = con.prepareStatement(sql2);
-//                        ins.setString(1, username);
-//                        ins.executeUpdate();
-//                    } catch (SQLException e) {
-//                        System.out.println(e.getMessage());
-//                    }
-//
-//                } else if (answer == 2) {
-//                } else {
-//                    System.out.println("wrong choice");
-//                }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -119,10 +88,6 @@ public class Admin extends Person {
     }
 
     boolean login(String userName, String password) {
-//        System.out.println("Please enter your username and password");
-//        Scanner input = new Scanner(System.in);
-//        userName = input.nextLine();
-//        password = input.nextLine();
 
         if (userName.equals("Admin") && password.equals("Admin")) {
             admin.setUserName(userName);
@@ -147,23 +112,6 @@ public class Admin extends Person {
             while (rs1.next()) {
                 String username = rs1.getString("username");
                 allPendingDrivers.add(username);
-//                System.out.println("Do you want to verify " + username + "\n1- Yes\n2- No");
-//                Scanner choice = new Scanner(System.in);
-//                int answer = choice.nextInt();
-//                if (answer == 1) {
-//                    String sql2 = "update driver set status = 'ACTIVE' where username = ?";
-//                    try {
-//                        PreparedStatement ins = con.prepareStatement(sql2);
-//                        ins.setString(1, username);
-//                        ins.executeUpdate();
-//                    } catch (SQLException e) {
-//                        System.out.println(e.getMessage());
-//                    }
-//
-//                } else if (answer == 2) {
-//                } else {
-//                    System.out.println("wrong choise");
-//                }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -252,6 +200,26 @@ public class Admin extends Person {
     @Override
     public String getUserName() {
         return this.userName;
+    }
+
+    public String setHolidays(String date) throws ParseException {
+        String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
+        String sql = "insert into Holiday (date) values (?)";
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement ins = conn.prepareStatement(sql);
+            ins.setString(1, date);
+            ins.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return e.getMessage();
+        }
+        System.out.println("Holiday has been added successfully");
+        return "Holiday has been added successfully";
     }
 
    /* public Boolean searchUser(String userName) {
