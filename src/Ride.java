@@ -21,14 +21,13 @@ public abstract class Ride {
 
 //    private String source;
 //    private String destnation;
-//    private double price;
+    private double price;
 //    private rideStatus mystatus;
 
 
 
 
     public int requestUserRide(String source, String destination, int passengersNum , String username) {
-        String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
         String sql = "insert into ride (source, destination, passengersNumber,user) values (?, ?, ?, ?, ?, ?)";
         int RideId = 0;
         try {
@@ -36,7 +35,7 @@ public abstract class Ride {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
-        try (Connection conn = DriverManager.getConnection(url)) {
+        try (Connection conn = DriverManager.getConnection(Admin.url)) {
             PreparedStatement ins = conn.prepareStatement(sql);
             ins.setString(1, source);
             ins.setString(2, destination);
@@ -50,6 +49,7 @@ public abstract class Ride {
             System.out.println(e.getMessage());
         }
         System.out.println("");
+        DriverRide.driversACTIVE(RideId);
         return RideId;
 
         //Ride ride = new Ride();
@@ -59,12 +59,11 @@ public abstract class Ride {
     public ArrayList<String> RidePrice(int RideId) {
         ArrayList<String> Result = new ArrayList<>();
         String req , user =  "", destination ="";
-        double price = 0, passengersNumber=0;
+        double passengersNumber=0;
         Date date = null, userDate = null;
         boolean firstRide = true;
-        String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
         String sql2 = "select passengersNumber , date , user, destination from ride where RideID = " + RideId;
-        try (Connection conn = DriverManager.getConnection(url)) {
+        try (Connection conn = DriverManager.getConnection(Admin.url)) {
             ResultSet RS = conn.createStatement().executeQuery(sql2);
             passengersNumber = RS.getInt("passengersNumber");
             date = RS.getDate("date");
@@ -75,7 +74,7 @@ public abstract class Ride {
         }
 
         String sql3 = "select firstRide , birthDate  from user where username = " + user;
-        try (Connection conn = DriverManager.getConnection(url)) {
+        try (Connection conn = DriverManager.getConnection(Admin.url)) {
             ResultSet RS = conn.createStatement().executeQuery(sql3);
             passengersNumber = RS.getInt("passengersNumber");
             firstRide = RS.getBoolean("firstRide");
@@ -86,7 +85,7 @@ public abstract class Ride {
         }
         Boolean desHasDiscount = false;
         String sql4 = "select discount from Area where location = " + destination;
-        try (Connection conn = DriverManager.getConnection(url)) {
+        try (Connection conn = DriverManager.getConnection(Admin.url)) {
             ResultSet RS = conn.createStatement().executeQuery(sql4);
             desHasDiscount = RS.getBoolean("discount");
         } catch (SQLException e) {
@@ -95,7 +94,7 @@ public abstract class Ride {
 
         String sql5 = "select count(*) from Holiday where date = " + date;
         Boolean exist = false;
-        try (Connection conn = DriverManager.getConnection(url)) {
+        try (Connection conn = DriverManager.getConnection(Admin.url)) {
             ResultSet RS = conn.createStatement().executeQuery(sql5);
             exist = RS.getBoolean(1);
         } catch (SQLException e) {
@@ -103,7 +102,7 @@ public abstract class Ride {
         }
 
         String sql = "select driverName , price from RideRequest where RideID = " + RideId;
-        try (Connection conn = DriverManager.getConnection(url)) {
+        try (Connection conn = DriverManager.getConnection(Admin.url)) {
             ResultSet RS = conn.createStatement().executeQuery(sql);
             while (RS.next()){
                 price =  RS.getDouble("price");
@@ -136,12 +135,10 @@ public abstract class Ride {
 
     public void SelectRidePrice(String driverName , int RideID){
         String req;
-        double pri =0;
-        String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
         String sql = "select price from RideRequest where driverName = " +driverName ;
-        try (Connection conn = DriverManager.getConnection(url)) {
+        try (Connection conn = DriverManager.getConnection(Admin.url)) {
             ResultSet RS = conn.createStatement().executeQuery(sql);
-            pri=RS.getDouble("price");
+            price=RS.getDouble("price");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -149,9 +146,9 @@ public abstract class Ride {
 
 
         String sql2 = "UPDATE ride SET price ='?' , driver ='?' where rideID = ?" ;
-        try(Connection conn = DriverManager.getConnection(url)) {
+        try(Connection conn = DriverManager.getConnection(Admin.url)) {
             PreparedStatement ins = conn.prepareStatement(sql2);
-            ins.setDouble(1, pri);
+            ins.setDouble(1, price);
             ins.setString(2, driverName);
             ins.setInt(3, RideID);
             ins.executeUpdate();
@@ -160,7 +157,7 @@ public abstract class Ride {
         }
 
         String sql3 = "select user, date from ride where rideID = " + RideID;
-        try (Connection conn = DriverManager.getConnection(url)) {
+        try (Connection conn = DriverManager.getConnection(Admin.url)) {
             ResultSet RS = conn.createStatement().executeQuery(sql3);
             String username =RS.getString("user");
             Date d = RS.getDate("date");
@@ -173,6 +170,14 @@ public abstract class Ride {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
 
@@ -201,13 +206,7 @@ public abstract class Ride {
         this.destnation = destnation;
     }
 
-    public double getPrice() {
-        return price;
-    }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
 
     public Ride.Ride(String source, String destnation) {
         this.source = source;

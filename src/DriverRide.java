@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 //import java.sql.*;
@@ -10,41 +7,64 @@ import java.util.ArrayList;
 //import java.util.Scanner;
 //
 public class DriverRide {
+    static ArrayList<String> drivers = new ArrayList<>();
 
-
-    public ArrayList<String> driversACTIVE(){
-        ArrayList<String> drivers = new ArrayList<>();
+    public static void driversACTIVE(int RideID){
         String sql = "select username from driver where status = 'ACTIVE' ";
-        String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
-        try (Connection conn = DriverManager.getConnection(url)) {
+        try (Connection conn = DriverManager.getConnection(Admin.url)) {
             ResultSet RS = conn.createStatement().executeQuery(sql);
             while (RS.next()){
-                drivers.add(RS.getString("username"));
+                String name= RS.getString("username");
+                drivers.add(name);
+                String sql1 = "insert into RideRequest (driverName, RideID) values (?, ?)";
+                try {
+                    PreparedStatement ins = conn.prepareStatement(sql);
+                    ins.setString(1, name);
+                    ins.setInt(2, RideID);
+                    ins.executeUpdate();
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return drivers;
     }
 
+//    public void driverSetPrice(){
+//        double price = 0;
 //
-//    Ride.Ride myRide;
-//    User.User user;
-//    Driver.Driver rideDriver;
+//        for(String driver: drivers){
+//            String sql = "update RideRequest set price = ? where username = ?";
+//            try(Connection con = DriverManager.getConnection(Admin.url)) {
+//                PreparedStatement ins = con.prepareStatement(sql);
+//                ins.setDouble(1, price);
+//                ins.setString(2, driver);
+//                ins.executeUpdate();
+//            } catch (SQLException e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
+//    }
+
 //
-//    public Ride.Ride getMyRide() {
+//    Ride myRide;
+//    User user;
+//    Driver rideDriver;
+//
+//    public Ride getMyRide() {
 //        return myRide;
 //    }
 //
-//    public User.User getUser() {
+//    public User getUser() {
 //        return user;
 //    }
 //
-//    public Driver.Driver getRideDriver() {
+//    public Driver getRideDriver() {
 //        return rideDriver;
 //    }
 //
-//    public void userRequest(User.User client) {
+//    public void userRequest(User client) {
 //        this.user = client;
 //        ArrayList<Driver.Driver> myDriver = new ArrayList();
 //        myRide = client.requestUserRide();
@@ -72,10 +92,10 @@ public class DriverRide {
 //        driverRequest(myDriver);
 //    }
 //
-//    public ArrayList<Driver.Driver> searchAreas(String source) { //on the user point of view
-//        ArrayList<Driver.Driver> myavailableDrivers = Admin.Admin.getAllDrivers();
-//        ArrayList<Driver.Driver> myDriver = new ArrayList();
-//        for (Driver.Driver driver : myavailableDrivers) {
+//    public ArrayList<Driver> searchAreas(String source) { //on the user point of view
+//        ArrayList<Driver> myavailableDrivers = Admin.Admin.getAllDrivers();
+//        ArrayList<Driver> myDriver = new ArrayList();
+//        for (Driver driver : myavailableDrivers) {
 //            for (String area : driver.getMyAreas()) {
 //                if (myRide.getSource().equals(area)) {
 //                    myDriver.add(driver);
@@ -87,9 +107,9 @@ public class DriverRide {
 //        return myDriver;
 //    }
 //
-//    public void driverRequest(ArrayList<Driver.Driver> myDriver) {
+//    public void driverRequest(ArrayList<Driver> myDriver) {
 //        HashMap<Driver.Driver, Double> offers = new HashMap<Driver.Driver, Double>();
-//        for (Driver.Driver driver : myDriver) {
+//        for (Driver driver : myDriver) {
 //            System.out.println("The ride is from " + myRide.getSource() + " to " + myRide.getDestnation());
 //            System.out.print("Please enter your offer to this ride: ");
 //            Scanner in = new Scanner(System.in);
@@ -111,12 +131,12 @@ public class DriverRide {
 //        Scanner input = new Scanner(System.in);
 //        int choice = input.nextInt();
 //        if (choice == i) { //cancelled
-//            myRide.setMystatus(Ride.rideStatus.REJECTED);
+//            myRide.setMystatus(rideStatus.REJECTED);
 //        } else {
-//            //Driver.Driver selectedOfferDriver = null;
+//            //Driver selectedOfferDriver = null;
 //
 //            int counter = 1;
-//            for (Driver.Driver driver : offers.keySet()) {
+//            for (Driver driver : offers.keySet()) {
 //                if (counter == choice) {
 //                    rideDriver = driver;
 //                    myRide.setPrice(offers.get(driver));
@@ -124,9 +144,9 @@ public class DriverRide {
 //                }
 //                counter++;
 //            }
-//            rideDriver.setDriverStatus(Driver.DriverStatus.INDRIVE);
+//            rideDriver.setDriverStatus(DriverStatus.INDRIVE);
 //            rideDriver.setMyRides(myRide);
-//            myRide.setMystatus(Ride.rideStatus.ACCEPTED);
+//            myRide.setMystatus(rideStatus.ACCEPTED);
 //        }
 //    }
 }

@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class Admin extends Person {
 
-    String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
+    static String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
     static Person admin = new Admin();
 
     public void setDiscount(String location){
@@ -43,6 +43,27 @@ public class Admin extends Person {
         return allSuspendDrivers;
     }
 
+    public void verifySpecificSuspendDriver(String username) {
+        String sql1 = "select count(*) from driver where username = " + username;
+        Boolean exist = false;
+        try (Connection conn = DriverManager.getConnection(url)) {
+            ResultSet RS = conn.createStatement().executeQuery(sql1);
+            exist = RS.getBoolean(1);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        if(exist){
+            String sql2 = "update driver SET status = 'ACTIVE' WHERE username = ?";
+            try( Connection con = DriverManager.getConnection(url)) {
+                PreparedStatement ins = con.prepareStatement(sql2);
+                ins.setString(1, username);
+                ins.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
     public String suspendSpecificDriver(String name){
         String sql = "update driver set status = 'ACTIVE' where username = ?";
         try(Connection con = DriverManager.getConnection(url)) {
@@ -72,6 +93,7 @@ public class Admin extends Person {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
         return allSuspendUsers;
     }
 

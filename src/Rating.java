@@ -16,9 +16,8 @@ public class Rating {
 //    }
     
     public void printRatings(Driver driver){
-        String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "\\SW.db";
         String query = "select user,rating from rating where driver = " + driver.getUserName();
-        try ( Connection conn = DriverManager.getConnection(url)) {
+        try ( Connection conn = DriverManager.getConnection(Admin.url)) {
             Statement stmt = conn.createStatement();
             ResultSet rates = stmt.executeQuery(query);
             if (rates.next() == false){
@@ -36,10 +35,9 @@ public class Rating {
         System.out.println("Please rate the selected driver");
         Scanner input = new Scanner(System.in);
         int rate = input.nextInt();
-        
-        String url = "jdbc:sqlite:" + System.getProperty("user.dir")+"\\SW.db";
+
         String query = "insert into rating (driver, user, rating) values (?, ?, ?)";
-        try (Connection conn = DriverManager.getConnection(url)) {
+        try (Connection conn = DriverManager.getConnection(Admin.url)) {
             PreparedStatement ins = conn.prepareStatement(query);
             ins.setString(1, driver.getUserName());
             ins.setString(2, user.getUserName());
@@ -53,9 +51,8 @@ public class Rating {
     }
 
     public double calcAvgRate(Driver driver) {
-        String url = "jdbc:sqlite:" + System.getProperty("user.dir") + "\\SW.db";
         String query = "select avg(rating) from rating where driver = " + driver.getUserName();
-        try ( Connection conn = DriverManager.getConnection(url)) {
+        try ( Connection conn = DriverManager.getConnection(Admin.url)) {
             Statement stmt = conn.createStatement();
             ResultSet averageRate = stmt.executeQuery(query);
             return averageRate.getDouble(1);
