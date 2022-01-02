@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class DriverController {
     static ArrayList<String> drivers = new ArrayList<>();
 
+    Event event = new Event();
     public static void driversACTIVE(int RideID){
         String sql = "select username from driver where status = 'ACTIVE' ";
         try (Connection conn = DriverManager.getConnection(Admin.url)) {
@@ -47,6 +48,7 @@ public class DriverController {
 
     public void driverSetPrice(String username , double price , int rideID){
             String sql = "update RideRequest set price = ? where username = ? and RideID =?" ;
+            String date ;
             try(Connection con = DriverManager.getConnection(Admin.url)) {
                 PreparedStatement ins = con.prepareStatement(sql);
                 ins.setDouble(1, price);
@@ -56,6 +58,14 @@ public class DriverController {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
+        String sql2 = "select  date  from ride where RideID = " + rideID;
+        try (Connection conn = DriverManager.getConnection(Admin.url)) {
+            ResultSet RS = conn.createStatement().executeQuery(sql2);
+            date = String.valueOf(RS.getDate("date"));
+            event.event1 (date,  username, price);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         }
 
 //
